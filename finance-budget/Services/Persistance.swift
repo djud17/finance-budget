@@ -13,23 +13,55 @@ class Persistance {
     
     let realm = try! Realm()
     
-    // MARK: Realm read & write current revenues
-    
-    func realmWrite(_ revenue: Revenue){
+    func realmWrite(_ object: Any) {
         try! realm.write{
-            realm.add(revenue)
+            realm.add(object as! Object)
         }
     }
     
-    func realmDelete(_ revenue: Revenue){
+    // MARK: Realm read current revenues
+    
+    func realmDeleteRevenue(_ revenue: Revenue){
         try! realm.write{
             realm.delete(revenue)
         }
     }
     
-    func realmRead() -> Results<Revenue>? {
+    func realmReadRevenue() -> Results<Revenue>? {
         let array = realm.objects(Revenue.self)
-        
+        return array
+    }
+    
+    // MARK: Realm read current categories
+
+    func realmDeleteCategory(_ category: Category){
+        let object = realm.objects(Category.self).filter({$0.categoryName == category.categoryName})
+        try! realm.write{
+            realm.delete(object)
+        }
+    }
+
+    func realmReadCategory() -> Results<Category>? {
+        let array = realm.objects(Category.self)
+        return array
+    }
+    
+    // MARK: Realm read current purchases
+
+    func realmDeletePurchase(_ purchase: Purchase){
+        let object = realm.objects(Purchase.self).filter({$0.purchaseAim == purchase.purchaseAim})
+        try! realm.write{
+            realm.delete(object)
+        }
+    }
+
+    func realmReadPurchase(_ category: String) -> LazyFilterSequence<Results<Purchase>>? {
+        let array = realm.objects(Purchase.self).filter({$0.categoryName == category})
+        return array
+    }
+    
+    func realmReadAllPurchase() -> Results<Purchase>? {
+        let array = realm.objects(Purchase.self)
         return array
     }
     

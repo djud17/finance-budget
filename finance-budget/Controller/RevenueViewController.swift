@@ -13,25 +13,24 @@ class RevenueViewController: UIViewController {
     @IBOutlet weak var revenueTableView: UITableView!
     
     var currentBalance = 0
-    
     var revenueArrays: [Revenue] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let revenueRealmArray = Persistance.shared.realmRead(),
+        if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let newBalance = Persistance.shared.balance {
             for el in revenueRealmArray {
                 revenueArrays.append(el)
             }
             revenueTableView.reloadData()
+            currentBalance = newBalance
             balanceLabel.text = separatedNumber(newBalance) + " \u{20BD}"
         }
     }
     
     @IBAction func addRevenueBtnTapped(_ sender: Any) {
         let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddRevenue") as! AddRevenuePopUpViewController
-        
         popUpVC.delegate = self
 
         self.addChild(popUpVC)
@@ -40,16 +39,4 @@ class RevenueViewController: UIViewController {
 
         popUpVC.didMove(toParent: self)
     }
-    
-    // Функция для отображения числа с разделением на десятки
-    
-    func separatedNumber(_ number: Any) -> String {
-        guard let itIsANumber = number as? NSNumber else { return "Not a number" }
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = " "
-        formatter.decimalSeparator = ","
-        return formatter.string(from: itIsANumber)!
-    }
-    
 }

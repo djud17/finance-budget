@@ -9,21 +9,36 @@ import UIKit
 
 class PurchasesCategoriesViewController: UIViewController {
 
+    @IBOutlet weak var categoryTableView: UITableView!
+    
+    var categoryArray: [Category] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        navigationItem.title = "Расходы"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        if let categoriesRealmArray = Persistance.shared.realmReadCategory(){
+            for el in categoriesRealmArray {
+                let category = Category()
+                category.categoryName = el.categoryName
+                categoryArray.append(category)
+            }
+            categoryTableView.reloadData()
+        }
     }
     
+    @IBAction func addCategoryBtnTapped(_ sender: Any) {
+        let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddCategory") as! AddCategoryPopUpViewController
+        
+        popUpVC.delegate = self
 
-    /*
-    // MARK: - Navigation
+        self.addChild(popUpVC)
+        popUpVC.view.frame = self.view.frame
+        self.view.addSubview(popUpVC.view)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        popUpVC.didMove(toParent: self)
     }
-    */
-
+    
 }

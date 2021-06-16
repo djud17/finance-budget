@@ -34,6 +34,6 @@ class CustomButton: UIButton {
         
         tintColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
         layer.borderColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
-        titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+        titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 17)
     }
 }

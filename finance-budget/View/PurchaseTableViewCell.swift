@@ -9,15 +9,12 @@ import UIKit
 
 class PurchaseTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var purchaseAimLabel: UILabel!
+    @IBOutlet weak var purchaseDateLabel: UILabel!
+    @IBOutlet weak var purchaseValueLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
