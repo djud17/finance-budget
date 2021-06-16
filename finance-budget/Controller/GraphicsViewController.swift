@@ -21,7 +21,6 @@ class GraphicsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         // Подгрузка данных из памяти
         
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),

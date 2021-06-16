@@ -373,7 +373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="To3-my-Nct" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1828.985507246377" y="788.83928571428567"/>
+            <point key="canvasLocation" x="997" y="1459"/>
         </scene>
         <!--Purchase List View Controller-->
         <scene sceneID="4mY-P8-pkf">
@@ -498,7 +498,75 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfJ-8L-Gdu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2684.057971014493" y="788.83928571428567"/>
+            <point key="canvasLocation" x="1864" y="789"/>
+        </scene>
+        <!--Graph Revenues View Controller-->
+        <scene sceneID="mbl-27-L8f">
+            <objects>
+                <viewController storyboardIdentifier="graphRevenue" id="BQG-hJ-w42" customClass="GraphRevenuesViewController" customModule="finance_budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UDQ-0D-LNO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uvk-wQ-Qwv">
+                                <rect key="frame" x="20" y="74" width="374" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9Q-X9-JWD">
+                                        <rect key="frame" x="0.0" y="0.0" width="93.5" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Неделя">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmQ-zX-OEM">
+                                        <rect key="frame" x="93.5" y="0.0" width="93.5" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Месяц">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDp-vW-YzK">
+                                        <rect key="frame" x="187" y="0.0" width="93.5" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Квартал">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Evw-57-npl">
+                                        <rect key="frame" x="280.5" y="0.0" width="93.5" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Все">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Op-ay-BnO" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="150" width="374" height="400"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="aPh-3a-xpZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dOQ-3L-vAB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dOQ-3L-vAB" firstAttribute="trailing" secondItem="8Op-ay-BnO" secondAttribute="trailing" constant="20" id="1l0-DF-Kyv"/>
+                            <constraint firstItem="Uvk-wQ-Qwv" firstAttribute="top" secondItem="dOQ-3L-vAB" secondAttribute="top" constant="30" id="ZXd-Sh-Jwc"/>
+                            <constraint firstItem="Uvk-wQ-Qwv" firstAttribute="leading" secondItem="dOQ-3L-vAB" secondAttribute="leading" constant="20" id="cMU-3c-24e"/>
+                            <constraint firstItem="8Op-ay-BnO" firstAttribute="leading" secondItem="dOQ-3L-vAB" secondAttribute="leading" constant="20" id="hU7-jY-AGz"/>
+                            <constraint firstItem="dOQ-3L-vAB" firstAttribute="trailing" secondItem="Uvk-wQ-Qwv" secondAttribute="trailing" constant="20" id="jxs-4J-AsY"/>
+                            <constraint firstItem="8Op-ay-BnO" firstAttribute="top" secondItem="Uvk-wQ-Qwv" secondAttribute="bottom" constant="40" id="wAs-1B-m9h"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barChartView" destination="8Op-ay-BnO" id="hdZ-pl-Ffo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMv-HJ-9Ox" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2716" y="789"/>
         </scene>
         <!--Add Purchase View Controller-->
         <scene sceneID="NG3-PR-oh8">
@@ -555,12 +623,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="xP8-nw-4K3">
-                                        <rect key="frame" x="227" y="107" width="108" height="37"/>
+                                        <rect key="frame" x="216" y="107" width="130" height="37"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="108" id="d76-l7-BUd"/>
+                                            <constraint firstAttribute="width" constant="130" id="d76-l7-BUd"/>
                                         </constraints>
+                                        <locale key="locale" localeIdentifier="ru_RU"/>
                                     </datePicker>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzW-Yc-fUi">
                                         <rect key="frame" x="20" y="111.5" width="56" height="28"/>
@@ -610,7 +679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Wu-Rd-gkV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3544.9275362318845" y="788.83928571428567"/>
+            <point key="canvasLocation" x="1863.7681159420292" y="1457.8125"/>
         </scene>
         <!--Расходы-->
         <scene sceneID="iny-rh-YDl">
@@ -696,7 +765,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4C-S3-v9a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="95.652173913043484" y="1640.625"/>
+            <point key="canvasLocation" x="-1039" y="1688"/>
         </scene>
     </scenes>
     <resources>
@@ -707,6 +776,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

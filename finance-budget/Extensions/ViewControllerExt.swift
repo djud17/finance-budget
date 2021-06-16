@@ -46,9 +46,19 @@ extension UIViewController {
     // Функция сокращения даты
     
     func shortDate(_ longDate: String) -> String {
-        var newShortDate: String = longDate
+        var newShortDate = longDate
+        
         let range = longDate.index(longDate.startIndex, offsetBy: 10)..<longDate.endIndex
         newShortDate.removeSubrange(range)
+        
+        let str = newShortDate.components(separatedBy: "-")
+        newShortDate = ""
+
+        for el in str.reversed() {
+            newShortDate += el + "."
+        }
+        
+        newShortDate.removeLast()
         
         return newShortDate
     }

@@ -44,7 +44,7 @@ class AddPurchaseViewController: UIViewController {
             newPurchase.purchaseAim = purchaseAim
             newPurchase.purchaseDate = purchaseDate
             newPurchase.purchaseValue = purchaseValue
-
+            
             delegate?.addPurchase(purchase: newPurchase)
             moveOut()
         } else {

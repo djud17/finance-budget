@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		253C0D3E267A9E9400BBCE04 /* GraphRevenuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */; };
 		254D5F2B26777055001BF78E /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2A26777055001BF78E /* CustomViews.swift */; };
 		254D5F2D2677733B001BF78E /* financeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2C2677733B001BF78E /* financeModels.swift */; };
 		254D5F3226777AF9001BF78E /* RevenueControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRevenuesViewController.swift; sourceTree = "<group>"; };
 		254D5F2A26777055001BF78E /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		254D5F2C2677733B001BF78E /* financeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = financeModels.swift; sourceTree = "<group>"; };
 		254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueControllerExt.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				254D5F3A2677A1F9001BF78E /* PurchasesCategoriesViewController.swift */,
 				259A830C2678A63900B8F24A /* PurchaseListViewController.swift */,
 				259A8315267A512E00B8F24A /* GraphicsViewController.swift */,
+				253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				259A830F2679FE1600B8F24A /* AddPurchaseViewController.swift in Sources */,
 				254D5F3B2677A1F9001BF78E /* PurchasesCategoriesViewController.swift in Sources */,
 				254D5F3F2677A908001BF78E /* AddCategoryPopUpViewController.swift in Sources */,
+				253C0D3E267A9E9400BBCE04 /* GraphRevenuesViewController.swift in Sources */,
 				254D5F3626777E2B001BF78E /* AddRevenuePopUpViewController.swift in Sources */,
 				254D5F3926778EB1001BF78E /* Persistance.swift in Sources */,
 				25EB097126650CB90080E798 /* AppDelegate.swift in Sources */,

@@ -19,11 +19,13 @@ class PurchaseListViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = category.categoryName
+        navigationItem.backButtonTitle = "Расходы"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         // Подгрузка данных из памяти
         
         if let purchasesRealmArray = Persistance.shared.realmReadPurchase(category.categoryName){
+            category.purchases.removeAll()
             for el in purchasesRealmArray {
                 category.purchases.append(el)
             }
@@ -32,6 +34,13 @@ class PurchaseListViewController: UIViewController {
     }
 
     @IBAction func purchaseGraphBtnTapped(_ sender: Any) {
+        // Переход к экрану с графиками расходов по текущей категории
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "graphRevenue") as! GraphRevenuesViewController
+        
+        vc.category = category
+
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func addPurchaseBtnTapped(_ sender: Any) {

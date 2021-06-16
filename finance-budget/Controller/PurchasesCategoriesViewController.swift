@@ -19,6 +19,7 @@ class PurchasesCategoriesViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Расходы"
+        navigationItem.backButtonTitle = "Категории"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         // Подгрузка данных из памяти
