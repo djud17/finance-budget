@@ -10,6 +10,8 @@ import Charts
 
 class GraphicsViewController: UIViewController {
     
+    // Экран График расходы и доходы
+    
     @IBOutlet weak var allRevenuesLabel: UILabel!
     @IBOutlet weak var allPurchasesLabel: UILabel!
     @IBOutlet weak var chartView: PieChartView!
@@ -19,6 +21,9 @@ class GraphicsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        // Подгрузка данных из памяти
+        
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let purchaseRealmArray = Persistance.shared.realmReadAllPurchase() {
             var revenueSum = 0
@@ -42,25 +47,27 @@ class GraphicsViewController: UIViewController {
 
     func customizeChart(dataPoints: [String], values: [Double]) {
         
-        // 1. Set ChartDataEntry
+        // Формирование графика
+        
+        // Установка массива входных значений
         var dataEntries: [ChartDataEntry] = []
         for i in 0..<dataPoints.count {
             let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
             dataEntries.append(dataEntry)
         }
         
-        // 2. Set ChartDataSet
+        // Установка сегментов
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
         pieChartDataSet.colors = [#colorLiteral(red: 0.1274035899, green: 0.6980392157, blue: 0.03852839612, alpha: 1), #colorLiteral(red: 0.6231456399, green: 0.1557593048, blue: 0.1239754036, alpha: 1)]
         
-        // 3. Set ChartData
+        // Установка формата графика
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let format = NumberFormatter()
         format.numberStyle = .none
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
         
-        // 4. Assign it to the chart’s data
+        // Установка источника данных для графика
         
         chartView.data = pieChartData
     }

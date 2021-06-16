@@ -12,6 +12,8 @@ protocol AddPurchaseDelegate {
 }
 
 class AddPurchaseViewController: UIViewController {
+    
+    // Всплывающий экран для добавления нового расхода
 
     @IBOutlet weak var purchaseValueTextField: UITextField!
     @IBOutlet weak var purchaseAimTextField: UITextField!
@@ -28,6 +30,9 @@ class AddPurchaseViewController: UIViewController {
     }
     
     @IBAction func addPurchaseBtnTapped(_ sender: Any) {
+        
+        // Нажатие кнопки добавление расхода, с проверками на корректность данных
+        
         if let purchaseValue = Int(purchaseValueTextField.text!),
            let purchaseAim = purchaseAimTextField.text,
            purchaseValueTextField.text != "",

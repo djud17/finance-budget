@@ -8,9 +8,14 @@
 import UIKit
 
 extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    // Задаем количество ячеек
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return category.purchases.count
     }
+    
+    // Формируем ячейку и передаем данные в элементы ячейки
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "purchaseCell") as! PurchaseTableViewCell
@@ -23,6 +28,8 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
         
         return cell
     }
+    
+    // Добавляем возможность удаления ячейки и соответствующих данных из Realm
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {(rowAction, indexPath) in
@@ -41,6 +48,9 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
 }
 
 extension PurchaseListViewController: AddPurchaseDelegate {
+    
+    // Передаем данные с помощью делегата и добавляем в массив, формирующий таблицу категорий
+    
     func addPurchase(purchase: Purchase) {
         category.purchases.append(purchase)
         Persistance.shared.realmWrite(purchase)

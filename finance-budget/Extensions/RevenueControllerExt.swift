@@ -8,9 +8,14 @@
 import UIKit
 
 extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    // Задаем количество ячеек
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return revenueArrays.count
     }
+    
+    // Формируем ячейку и передаем данные в элементы ячейки
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "revenueCell")
@@ -22,6 +27,8 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell!
     }
+    
+    // Добавляем возможность удаления ячейки и соответствующих данных
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {(rowAction, indexPath) in
@@ -46,6 +53,10 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RevenueViewController: AddRevenueDelegate {
+    
+    // Передаем данные с помощью делегата и добавляем в массив, формирующий таблицу
+    // Запись дохода в Realm
+    
     func addRevenueToTable(value: Int, type: String) {
         let revenue = Revenue()
         revenue.revenueValue = value

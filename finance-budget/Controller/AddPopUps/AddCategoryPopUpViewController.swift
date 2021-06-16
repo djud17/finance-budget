@@ -12,6 +12,8 @@ protocol AddCategoryDelegate {
 }
 
 class AddCategoryPopUpViewController: UIViewController {
+    
+    // Всплывающий экран для добавления новой категории
 
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
@@ -25,6 +27,9 @@ class AddCategoryPopUpViewController: UIViewController {
     }
 
     @IBAction func addCategoryBtnTapped(_ sender: Any) {
+        
+        // Нажатие кнопки добавление категории, с проверками на корректность данных
+        
         if let categoryName = categoryTextField.text,
            categoryTextField.text != "" {
             errorLabel.isHidden = true

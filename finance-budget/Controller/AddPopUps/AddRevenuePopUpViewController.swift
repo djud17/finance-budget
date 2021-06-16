@@ -13,6 +13,8 @@ protocol AddRevenueDelegate {
 
 class AddRevenuePopUpViewController: UIViewController {
     
+    // Всплывающий экран для добавления нового дохода
+    
     @IBOutlet weak var sumRevenueTextField: UITextField!
     @IBOutlet weak var typeRevenueTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
@@ -26,6 +28,9 @@ class AddRevenuePopUpViewController: UIViewController {
     }
     
     @IBAction func addRevenueBtnTapped(_ sender: Any) {
+        
+        // Нажатие кнопки добавление дохода, с проверками на корректность данных
+        
         if let sum = Int(sumRevenueTextField.text!),
            let type = typeRevenueTextField.text,
            sumRevenueTextField.text != "",

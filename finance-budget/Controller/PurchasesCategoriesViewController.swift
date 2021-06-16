@@ -8,6 +8,8 @@
 import UIKit
 
 class PurchasesCategoriesViewController: UIViewController {
+    
+    // Экран Категории расходов
 
     @IBOutlet weak var categoryTableView: UITableView!
     
@@ -18,6 +20,8 @@ class PurchasesCategoriesViewController: UIViewController {
         
         navigationItem.title = "Расходы"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Подгрузка данных из памяти
         
         if let categoriesRealmArray = Persistance.shared.realmReadCategory(){
             for el in categoriesRealmArray {
@@ -30,6 +34,9 @@ class PurchasesCategoriesViewController: UIViewController {
     }
     
     @IBAction func addCategoryBtnTapped(_ sender: Any) {
+        
+        // Вызов всплывающего окна для добавления категории
+        
         let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddCategory") as! AddCategoryPopUpViewController
         
         popUpVC.delegate = self

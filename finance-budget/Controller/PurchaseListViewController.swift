@@ -9,6 +9,8 @@ import UIKit
 
 class PurchaseListViewController: UIViewController {
     
+    // Экран Расходов
+    
     @IBOutlet weak var purchaseListTableView: UITableView!
     
     var category = Category()
@@ -18,6 +20,8 @@ class PurchaseListViewController: UIViewController {
         
         navigationItem.title = category.categoryName
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Подгрузка данных из памяти
         
         if let purchasesRealmArray = Persistance.shared.realmReadPurchase(category.categoryName){
             for el in purchasesRealmArray {
@@ -31,6 +35,9 @@ class PurchaseListViewController: UIViewController {
     }
     
     @IBAction func addPurchaseBtnTapped(_ sender: Any) {
+        
+        // Вызов всплывающего окна для добавления расхода
+        
         let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddPurchase") as! AddPurchaseViewController
         
         popUpVC.categoryName = category.categoryName

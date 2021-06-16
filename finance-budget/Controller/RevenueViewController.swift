@@ -8,6 +8,8 @@
 import UIKit
 
 class RevenueViewController: UIViewController {
+    
+    // Экран Доходов
 
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var revenueTableView: UITableView!
@@ -17,6 +19,8 @@ class RevenueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Подгрузка данных из памяти
         
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let newBalance = Persistance.shared.balance {
@@ -30,6 +34,9 @@ class RevenueViewController: UIViewController {
     }
     
     @IBAction func addRevenueBtnTapped(_ sender: Any) {
+        
+        // Вызов всплывающего окна для добавления дохода
+        
         let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddRevenue") as! AddRevenuePopUpViewController
         popUpVC.delegate = self
 

@@ -8,6 +8,7 @@
 import UIKit
 
 class CustomView: UIView {
+    // Кастомная подложка для отображения баланса
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,7 @@ class CustomView: UIView {
 }
 
 class CustomButton: UIButton {
+    // Кастомный вид кнопки
     
     override func awakeFromNib() {
         super.awakeFromNib()
