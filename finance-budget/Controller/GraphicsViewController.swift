@@ -1,13 +1,13 @@
 //
-//  AddCategoryPopUpViewController.swift
+//  GraphicsViewController.swift
 //  finance-budget
 //
-//  Created by Давид Тоноян  on 14.06.2021.
+//  Created by Давид Тоноян  on 16.06.2021.
 //
 
 import UIKit
 
-class AddCategoryPopUpViewController: UIViewController {
+class GraphicsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
