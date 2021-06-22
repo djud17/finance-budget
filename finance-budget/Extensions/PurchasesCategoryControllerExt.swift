@@ -12,6 +12,12 @@ extension PurchasesCategoriesViewController: UITableViewDataSource, UITableViewD
     // Задаем количество ячеек
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if categoryArray.count == 0 {
+            tableView.setEmptyMessage("Нет записей о категориях")
+        } else {
+            tableView.restore()
+        }
+        
         return categoryArray.count
     }
     
@@ -27,26 +33,27 @@ extension PurchasesCategoriesViewController: UITableViewDataSource, UITableViewD
     }
     
     // Добавляем возможность удаления ячейки и соответствующих данных из Realm (удаление всех покупок из памяти, принадлежащих данной категории)
+ 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {(rowAction, indexPath) in
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             let category = self.categoryArray[indexPath.row]
-
-            if !category.purchases.isEmpty {
-                for el in category.purchases{
+            
+            if let purchasesRealmArray = Persistance.shared.realmReadPurchase(category.categoryName){
+                for el in purchasesRealmArray {
                     Persistance.shared.realmDeletePurchase(el)
                 }
             }
+            
+            self.categoryArray[indexPath.row].purchases.removeAll()
             self.categoryArray.remove(at: indexPath.row)
             Persistance.shared.realmDeleteCategory(category)
                       
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        
-        deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-        
-        return [deleteAction]
     }
     
     // Реализация перехода из таблицы в выбранную категорию

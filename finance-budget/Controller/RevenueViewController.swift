@@ -22,6 +22,8 @@ class RevenueViewController: UIViewController {
         
         // Подгрузка данных из памяти
         
+        revenueTableView.allowsSelection = false
+        
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let newBalance = Persistance.shared.balance {
             for el in revenueRealmArray {
@@ -33,7 +35,7 @@ class RevenueViewController: UIViewController {
         }
     }
     
-    @IBAction func addRevenueBtnTapped(_ sender: Any) {
+    @IBAction func addRevenue(_ sender: Any) {
         
         // Вызов всплывающего окна для добавления дохода
         

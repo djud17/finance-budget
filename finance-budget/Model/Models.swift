@@ -31,3 +31,12 @@ class Purchase: Object {
     @objc dynamic var categoryName: String = ""
 }
 
+enum ChartDataType {
+    
+    // Типы входных данных для графиков
+    
+    case week
+    case month
+    case quarter
+    case all
+}

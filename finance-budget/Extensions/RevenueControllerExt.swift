@@ -12,6 +12,12 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
     // Задаем количество ячеек
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if revenueArrays.count == 0 {
+            tableView.setEmptyMessage("Нет записей о доходах")
+        } else {
+            tableView.restore()
+        }
+
         return revenueArrays.count
     }
     
@@ -30,8 +36,13 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
     
     // Добавляем возможность удаления ячейки и соответствующих данных
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {(rowAction, indexPath) in
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             let revenue = self.revenueArrays[indexPath.row]
             
             self.revenueArrays.remove(at: indexPath.row)
@@ -44,10 +55,6 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        
-        deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-        
-        return [deleteAction]
     }
     
 }

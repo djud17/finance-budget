@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		253C0D3E267A9E9400BBCE04 /* GraphRevenuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */; };
 		254D5F2B26777055001BF78E /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2A26777055001BF78E /* CustomViews.swift */; };
-		254D5F2D2677733B001BF78E /* financeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2C2677733B001BF78E /* financeModels.swift */; };
+		254D5F2D2677733B001BF78E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2C2677733B001BF78E /* Models.swift */; };
 		254D5F3226777AF9001BF78E /* RevenueControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */; };
 		254D5F3626777E2B001BF78E /* AddRevenuePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3526777E2B001BF78E /* AddRevenuePopUpViewController.swift */; };
 		254D5F3926778EB1001BF78E /* Persistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3826778EB1001BF78E /* Persistance.swift */; };
@@ -22,6 +22,10 @@
 		259A83112679FF0900B8F24A /* PurchaseListControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A83102679FF0900B8F24A /* PurchaseListControllerExt.swift */; };
 		259A8313267A01B600B8F24A /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A8312267A01B600B8F24A /* PurchaseTableViewCell.swift */; };
 		259A8316267A512E00B8F24A /* GraphicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A8315267A512E00B8F24A /* GraphicsViewController.swift */; };
+		25E0A6F526824BED0033B32A /* AddRevenueExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6F426824BED0033B32A /* AddRevenueExt.swift */; };
+		25E0A6F726824C520033B32A /* AddCategoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6F626824C520033B32A /* AddCategoryExt.swift */; };
+		25E0A6F926824C610033B32A /* AddPurchaseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6F826824C610033B32A /* AddPurchaseExt.swift */; };
+		25E0A6FB26824F5A0033B32A /* TableViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6FA26824F5A0033B32A /* TableViewExt.swift */; };
 		25EB097126650CB90080E798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097026650CB90080E798 /* AppDelegate.swift */; };
 		25EB097326650CB90080E798 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097226650CB90080E798 /* SceneDelegate.swift */; };
 		25EB097526650CB90080E798 /* RevenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097426650CB90080E798 /* RevenueViewController.swift */; };
@@ -34,7 +38,7 @@
 /* Begin PBXFileReference section */
 		253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRevenuesViewController.swift; sourceTree = "<group>"; };
 		254D5F2A26777055001BF78E /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
-		254D5F2C2677733B001BF78E /* financeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = financeModels.swift; sourceTree = "<group>"; };
+		254D5F2C2677733B001BF78E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueControllerExt.swift; sourceTree = "<group>"; };
 		254D5F3526777E2B001BF78E /* AddRevenuePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRevenuePopUpViewController.swift; sourceTree = "<group>"; };
 		254D5F3826778EB1001BF78E /* Persistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistance.swift; sourceTree = "<group>"; };
@@ -47,6 +51,10 @@
 		259A83102679FF0900B8F24A /* PurchaseListControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseListControllerExt.swift; sourceTree = "<group>"; };
 		259A8312267A01B600B8F24A /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		259A8315267A512E00B8F24A /* GraphicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsViewController.swift; sourceTree = "<group>"; };
+		25E0A6F426824BED0033B32A /* AddRevenueExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRevenueExt.swift; sourceTree = "<group>"; };
+		25E0A6F626824C520033B32A /* AddCategoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryExt.swift; sourceTree = "<group>"; };
+		25E0A6F826824C610033B32A /* AddPurchaseExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPurchaseExt.swift; sourceTree = "<group>"; };
+		25E0A6FA26824F5A0033B32A /* TableViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewExt.swift; sourceTree = "<group>"; };
 		25EB096D26650CB90080E798 /* finance-budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "finance-budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25EB097026650CB90080E798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25EB097226650CB90080E798 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +83,9 @@
 		254D5F3026777A8C001BF78E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				25E0A6F326824BC30033B32A /* AddPopUpsExt */,
 				254D5F402677A945001BF78E /* ViewControllerExt.swift */,
+				25E0A6FA26824F5A0033B32A /* TableViewExt.swift */,
 				254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */,
 				254D5F3C2677A23B001BF78E /* PurchasesCategoryControllerExt.swift */,
 				259A83102679FF0900B8F24A /* PurchaseListControllerExt.swift */,
@@ -99,6 +109,16 @@
 				259A830E2679FE1600B8F24A /* AddPurchaseViewController.swift */,
 			);
 			path = AddPopUps;
+			sourceTree = "<group>";
+		};
+		25E0A6F326824BC30033B32A /* AddPopUpsExt */ = {
+			isa = PBXGroup;
+			children = (
+				25E0A6F426824BED0033B32A /* AddRevenueExt.swift */,
+				25E0A6F626824C520033B32A /* AddCategoryExt.swift */,
+				25E0A6F826824C610033B32A /* AddPurchaseExt.swift */,
+			);
+			path = AddPopUpsExt;
 			sourceTree = "<group>";
 		};
 		25EB096426650CB80080E798 = {
@@ -140,7 +160,7 @@
 		25EB098426650DFF0080E798 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				254D5F2C2677733B001BF78E /* financeModels.swift */,
+				254D5F2C2677733B001BF78E /* Models.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,7 +319,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				254D5F3D2677A23B001BF78E /* PurchasesCategoryControllerExt.swift in Sources */,
-				254D5F2D2677733B001BF78E /* financeModels.swift in Sources */,
+				254D5F2D2677733B001BF78E /* Models.swift in Sources */,
+				25E0A6F926824C610033B32A /* AddPurchaseExt.swift in Sources */,
 				259A8316267A512E00B8F24A /* GraphicsViewController.swift in Sources */,
 				254D5F3226777AF9001BF78E /* RevenueControllerExt.swift in Sources */,
 				25EB097526650CB90080E798 /* RevenueViewController.swift in Sources */,
@@ -313,7 +334,10 @@
 				254D5F3926778EB1001BF78E /* Persistance.swift in Sources */,
 				25EB097126650CB90080E798 /* AppDelegate.swift in Sources */,
 				254D5F412677A945001BF78E /* ViewControllerExt.swift in Sources */,
+				25E0A6F726824C520033B32A /* AddCategoryExt.swift in Sources */,
+				25E0A6FB26824F5A0033B32A /* TableViewExt.swift in Sources */,
 				25EB097326650CB90080E798 /* SceneDelegate.swift in Sources */,
+				25E0A6F526824BED0033B32A /* AddRevenueExt.swift in Sources */,
 				259A830D2678A63900B8F24A /* PurchaseListViewController.swift in Sources */,
 				259A83112679FF0900B8F24A /* PurchaseListControllerExt.swift in Sources */,
 			);

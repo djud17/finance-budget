@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AddPurchaseDelegate {
+protocol AddPurchaseDelegate: AnyObject {
     func addPurchase(purchase: Purchase)
 }
 
@@ -15,24 +15,25 @@ class AddPurchaseViewController: UIViewController {
     
     // Всплывающий экран для добавления нового расхода
 
+    @IBOutlet weak var popUpView: CustomView!
     @IBOutlet weak var purchaseValueTextField: UITextField!
     @IBOutlet weak var purchaseAimTextField: UITextField!
     @IBOutlet weak var purchaseDatePicker: UIDatePicker!
     @IBOutlet weak var errorLabel: UILabel!
     
     var categoryName: String = ""
-    var delegate: AddPurchaseDelegate?
+    weak var delegate: AddPurchaseDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white.withAlphaComponent(0.95)
         moveIn()
+        
+        purchaseValueTextField.delegate = self
+        purchaseAimTextField.delegate = self
     }
     
-    @IBAction func addPurchaseBtnTapped(_ sender: Any) {
-        
-        // Нажатие кнопки добавление расхода, с проверками на корректность данных
-        
+    func addPurchase() {
         if let purchaseValue = Int(purchaseValueTextField.text!),
            let purchaseAim = purchaseAimTextField.text,
            purchaseValueTextField.text != "",
@@ -49,6 +50,20 @@ class AddPurchaseViewController: UIViewController {
             moveOut()
         } else {
             errorLabel.isHidden = false
+        }
+    }
+    
+    @IBAction func addPurchaseBtnTapped(_ sender: Any) {
+        
+        // Нажатие кнопки добавление расхода, с проверками на корректность данных
+        addPurchase()
+    }
+    
+    @IBAction func tapOutsideView (recognizer: UITapGestureRecognizer) {
+        let yTap = recognizer.location(in: popUpView).y
+        
+        if yTap < 0 || yTap > 250 {
+            moveOut()
         }
     }
     

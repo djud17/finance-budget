@@ -39,3 +39,15 @@ class CustomButton: UIButton {
         titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 17)
     }
 }
+
+class NoDataView: UIView {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupView()
+    }
+    
+    func setupView() {
+        frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.09771414976, alpha: 0.1983769903)
+    }
+}

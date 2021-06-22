@@ -49,9 +49,9 @@ class Persistance {
     // MARK: Realm read current purchases
 
     func realmDeletePurchase(_ purchase: Purchase){
-        let object = realm.objects(Purchase.self).filter({$0.purchaseAim == purchase.purchaseAim})
+        //let object = realm.objects(Purchase.self).filter({$0.purchaseAim == purchase.purchaseAim})
         try! realm.write{
-            realm.delete(object)
+            realm.delete(purchase)
         }
     }
 

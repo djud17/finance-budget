@@ -34,7 +34,7 @@ class PurchasesCategoriesViewController: UIViewController {
         }
     }
     
-    @IBAction func addCategoryBtnTapped(_ sender: Any) {
+    @IBAction func addCategory(_ sender: Any) {
         
         // Вызов всплывающего окна для добавления категории
         

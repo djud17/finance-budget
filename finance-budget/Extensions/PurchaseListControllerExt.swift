@@ -12,6 +12,12 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
     // Задаем количество ячеек
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if category.purchases.count == 0 {
+            tableView.setEmptyMessage("Нет записей о расходах")
+        } else {
+            tableView.restore()
+        }
+        
         return category.purchases.count
     }
     
@@ -30,9 +36,13 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     // Добавляем возможность удаления ячейки и соответствующих данных из Realm
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {(rowAction, indexPath) in
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             let purchase = self.category.purchases[indexPath.row]
             
             self.category.purchases.remove(at: indexPath.row)
@@ -40,10 +50,6 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
                       
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        
-        deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-        
-        return [deleteAction]
     }
 }
 
