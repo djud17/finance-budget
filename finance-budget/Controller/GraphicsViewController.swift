@@ -15,9 +15,17 @@ class GraphicsViewController: UIViewController {
     @IBOutlet weak var allRevenuesLabel: UILabel!
     @IBOutlet weak var allPurchasesLabel: UILabel!
     @IBOutlet weak var chartView: PieChartView!
+    
+    var revenueSum = 0
+    var purchaseSum = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + " \u{20BD}"
+        allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        
+        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + " \u{20BD}"
+        allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,26 +33,33 @@ class GraphicsViewController: UIViewController {
         
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let purchaseRealmArray = Persistance.shared.realmReadAllPurchase() {
-            var revenueSum = 0
-            var purchaseSum = 0
             
-            for el in revenueRealmArray {
-                revenueSum += el.revenueValue
+            if revenueRealmArray.isEmpty && purchaseRealmArray.isEmpty {
+                chartView.noDataText = "Нет данных"
+                chartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+            } else {
+                revenueSum = 0
+                purchaseSum = 0
+                
+                for el in revenueRealmArray {
+                    revenueSum += el.revenueValue
+                }
+                for el in purchaseRealmArray {
+                    purchaseSum += el.purchaseValue
+                }
+                allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + " \u{20BD}"
+                allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                
+                allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + " \u{20BD}"
+                allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
+                
+                
+                setChart(dataPoints: ["Доходы","Расходы"], values: [revenueSum,purchaseSum].map{ Double($0) })
             }
-            for el in purchaseRealmArray {
-                purchaseSum += el.purchaseValue
-            }
-            allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + " \u{20BD}"
-            allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-            
-            allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + " \u{20BD}"
-            allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
-            
-            customizeChart(dataPoints: ["Доходы","Расходы"], values: [revenueSum,purchaseSum].map{ Double($0) })
         }
     }
 
-    func customizeChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPoints: [String], values: [Double]) {
         
         // Формирование графика
         

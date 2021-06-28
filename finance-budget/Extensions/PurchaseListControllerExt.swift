@@ -45,6 +45,11 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
         if editingStyle == .delete {
             let purchase = self.category.purchases[indexPath.row]
             
+            if var balance = Persistance.shared.balance {
+                balance += purchase.purchaseValue
+                Persistance.shared.balance = balance
+            }
+            
             self.category.purchases.remove(at: indexPath.row)
             Persistance.shared.realmDeletePurchase(purchase)
                       
@@ -60,6 +65,12 @@ extension PurchaseListViewController: AddPurchaseDelegate {
     func addPurchase(purchase: Purchase) {
         category.purchases.append(purchase)
         Persistance.shared.realmWrite(purchase)
+        
+        if var balance = Persistance.shared.balance {
+            balance -= purchase.purchaseValue
+            Persistance.shared.balance = balance
+        }
+        
         purchaseListTableView.reloadData()
     }
 }

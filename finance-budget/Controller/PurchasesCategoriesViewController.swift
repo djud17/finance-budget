@@ -22,6 +22,8 @@ class PurchasesCategoriesViewController: UIViewController {
         navigationItem.backButtonTitle = "Категории"
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        categoryTableView.tableFooterView = UIView()
+        
         // Подгрузка данных из памяти
         
         if let categoriesRealmArray = Persistance.shared.realmReadCategory(){

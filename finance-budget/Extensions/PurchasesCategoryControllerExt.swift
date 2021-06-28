@@ -44,6 +44,11 @@ extension PurchasesCategoriesViewController: UITableViewDataSource, UITableViewD
             
             if let purchasesRealmArray = Persistance.shared.realmReadPurchase(category.categoryName){
                 for el in purchasesRealmArray {
+                    if var balance = Persistance.shared.balance {
+                        balance += el.purchaseValue
+                        Persistance.shared.balance = balance
+                    }
+                    
                     Persistance.shared.realmDeletePurchase(el)
                 }
             }

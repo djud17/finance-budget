@@ -52,6 +52,7 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
             Persistance.shared.realmDeleteRevenue(revenue)
             
             self.balanceLabel.text = self.separatedNumber(self.currentBalance) + " \u{20BD}"
+            self.balanceLabel.shake()
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -76,6 +77,7 @@ extension RevenueViewController: AddRevenueDelegate {
         Persistance.shared.realmWrite(revenue)
         
         balanceLabel.text = separatedNumber(currentBalance) + " \u{20BD}"
+        balanceLabel.shake()
         revenueTableView.reloadData()
     }
 }

@@ -20,9 +20,10 @@ class RevenueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Подгрузка данных из памяти
-        
+        revenueTableView.tableFooterView = UIView()
         revenueTableView.allowsSelection = false
+        
+        // Подгрузка данных из памяти
         
         if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
            let newBalance = Persistance.shared.balance {
@@ -30,6 +31,13 @@ class RevenueViewController: UIViewController {
                 revenueArrays.append(el)
             }
             revenueTableView.reloadData()
+            currentBalance = newBalance
+            balanceLabel.text = separatedNumber(newBalance) + " \u{20BD}"
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let newBalance = Persistance.shared.balance {
             currentBalance = newBalance
             balanceLabel.text = separatedNumber(newBalance) + " \u{20BD}"
         }

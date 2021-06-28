@@ -25,8 +25,13 @@ class GraphRevenuesViewController: UIViewController {
         navigationItem.title = category.categoryName
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let dataSetDict = setData(category.purchases, .all)
-        setChart(dataSetDict)
+        if category.purchases.isEmpty {
+            lineChartView.noDataText = "Нет данных"
+            lineChartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+        } else {
+            let dataSetDict = setData(category.purchases, .all)
+            setChart(dataSetDict)
+        }
         
         allBtn.backgroundColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
         allBtn.tintColor = .white

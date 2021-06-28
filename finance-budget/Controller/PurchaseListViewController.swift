@@ -23,6 +23,7 @@ class PurchaseListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         purchaseListTableView.allowsSelection = false
+        purchaseListTableView.tableFooterView = UIView()
         
         // Подгрузка данных из памяти
         
