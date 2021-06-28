@@ -14,6 +14,7 @@ class PurchaseListViewController: UIViewController {
     @IBOutlet weak var purchaseListTableView: UITableView!
     
     var category = Category()
+    var currency = " \u{20BD}"
 
     override func viewDidLoad() {
         super.viewDidLoad()

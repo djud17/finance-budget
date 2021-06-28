@@ -16,6 +16,7 @@ class RevenueViewController: UIViewController {
     
     var currentBalance = 0
     var revenueArrays: [Revenue] = []
+    var currency = " \u{20BD}"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +33,14 @@ class RevenueViewController: UIViewController {
             }
             revenueTableView.reloadData()
             currentBalance = newBalance
-            balanceLabel.text = separatedNumber(newBalance) + " \u{20BD}"
+            balanceLabel.text = separatedNumber(newBalance) + currency
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let newBalance = Persistance.shared.balance {
             currentBalance = newBalance
-            balanceLabel.text = separatedNumber(newBalance) + " \u{20BD}"
+            balanceLabel.text = separatedNumber(newBalance) + currency
         }
     }
     

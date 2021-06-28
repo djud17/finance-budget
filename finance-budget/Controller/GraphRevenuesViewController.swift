@@ -26,23 +26,31 @@ class GraphRevenuesViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         if category.purchases.isEmpty {
-            lineChartView.noDataText = "Нет данных"
-            lineChartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+            showNoData()
         } else {
-            let dataSetDict = setData(category.purchases, .all)
-            setChart(dataSetDict)
+            showData()
         }
         
         allBtn.backgroundColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
         allBtn.tintColor = .white
     }
+    
+    func showNoData() {
+        lineChartView.noDataText = "Нет данных"
+        lineChartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+    }
+    
+    func showData() {
+        let dataSetDict = setData(category.purchases, .all)
+        setChart(dataSetDict)
+    }
 
     // Формирование массива данных
     
     func setData(_ purchases: [Purchase],_ dataType: ChartDataType) -> [(String,String,String,Double)] {
-        var chartData: [(String,String,String,Double)] = []
+        var chartData: [(day: String,month: String,year: String,value: Double)] = []
         var purchaseDict: [String:Double] = [:]
-        var chartPeriodData: [(String,String,String,Double)] = []
+        var chartPeriodData: [(day: String,month: String,year: String,value: Double)] = []
         
         // Создание словаря, ключ - дата покупки, значение - сумма
         // Благодаря этому можем исключить задвоение дат
@@ -74,15 +82,15 @@ class GraphRevenuesViewController: UIViewController {
         
         // Рассчитываем стартовую дату выбранного периода и формируем массив с датами и покупками, которые входят в необходимый период
         
-        let last: (Int,Int,Int) = (Int(chartData.last?.0 ?? "") ?? 0,
-                                   Int(chartData.last?.1 ?? "") ?? 0,
-                                   Int(chartData.last?.2 ?? "") ?? 0)
+        let last: (day: Int, month: Int, year: Int) = (Int(chartData.last?.day ?? "") ?? 0,
+                                                       Int(chartData.last?.month ?? "") ?? 0,
+                                                       Int(chartData.last?.year ?? "") ?? 0)
         
         if let startPeriod: (startDay: Int, startMonth: Int, startYear: Int) = dataPeriodCount(last,dataType) {
             for el in chartData {
-                let day = Int(el.0) ?? 0
-                let month = Int(el.1) ?? 0
-                let year = Int(el.2) ?? 0
+                let day = Int(el.day) ?? 0
+                let month = Int(el.month) ?? 0
+                let year = Int(el.year) ?? 0
                 
                 if ((month > startPeriod.startMonth) && (year >= startPeriod.startYear)) ||
                     ((month == startPeriod.startMonth) && (day >= startPeriod.startDay) && (year >= startPeriod.startYear)) ||
@@ -99,9 +107,12 @@ class GraphRevenuesViewController: UIViewController {
     
     // Функция для расчета стартовой даты периода
     
-    func dataPeriodCount(_ last: (Int,Int,Int),_ dataType: ChartDataType) -> (Int,Int,Int)? {
+    func dataPeriodCount(_ last: (day: Int,month: Int,year: Int),_ dataType: ChartDataType) -> (Int,Int,Int)? {
         var period = 0
         var ostatok = 0
+        let lastMonth = 12
+        let daysInEvenMonth = 31
+        let daysInOddMonth = 30
         
         switch dataType {
         case .week:
@@ -114,21 +125,21 @@ class GraphRevenuesViewController: UIViewController {
             return nil
         }
         
-        var startPeriod: (Int,Int,Int) = (last.0 - period, last.1, last.2)
+        var startPeriod: (day: Int,month: Int,year: Int) = (last.day - period, last.month, last.year)
         
-        while startPeriod.0 <= 0  {
-            startPeriod.1 -= 1
-            ostatok = -startPeriod.0
+        while startPeriod.day <= 0  {
+            startPeriod.month -= 1
+            ostatok = -startPeriod.day
             
-            if startPeriod.1 <= 0 {
-                startPeriod.1 = 12
-                startPeriod.2 -= 1
+            if startPeriod.month <= 0 {
+                startPeriod.month = lastMonth
+                startPeriod.year -= 1
             }
             
-            if startPeriod.1 % 2 == 0 {
-                startPeriod.0 = 31 - ostatok
+            if startPeriod.month % 2 == 0 {
+                startPeriod.day = daysInEvenMonth - ostatok
             } else {
-                startPeriod.0 = 30 - ostatok
+                startPeriod.day = daysInOddMonth - ostatok
             }
             
         }

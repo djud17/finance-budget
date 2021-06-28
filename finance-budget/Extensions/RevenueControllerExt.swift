@@ -28,7 +28,7 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
         let model = revenueArrays[indexPath.row]
         
         cell?.textLabel?.text = model.revenueType
-        cell?.detailTextLabel?.text = "+ " + separatedNumber(model.revenueValue) + " \u{20BD}"
+        cell?.detailTextLabel?.text = "+ " + separatedNumber(model.revenueValue) + currency
         cell?.detailTextLabel?.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
         return cell!
@@ -51,7 +51,7 @@ extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
             Persistance.shared.balance = self.currentBalance
             Persistance.shared.realmDeleteRevenue(revenue)
             
-            self.balanceLabel.text = self.separatedNumber(self.currentBalance) + " \u{20BD}"
+            self.balanceLabel.text = self.separatedNumber(self.currentBalance) + currency
             self.balanceLabel.shake()
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -76,7 +76,7 @@ extension RevenueViewController: AddRevenueDelegate {
         revenueArrays.append(revenue)
         Persistance.shared.realmWrite(revenue)
         
-        balanceLabel.text = separatedNumber(currentBalance) + " \u{20BD}"
+        balanceLabel.text = separatedNumber(currentBalance) + currency
         balanceLabel.shake()
         revenueTableView.reloadData()
     }

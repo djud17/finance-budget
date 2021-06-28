@@ -29,7 +29,7 @@ extension PurchaseListViewController: UITableViewDataSource, UITableViewDelegate
         
         cell.purchaseAimLabel.text = model.purchaseAim
         cell.purchaseDateLabel.text = model.purchaseDate
-        cell.purchaseValueLabel.text = "- " + separatedNumber(model.purchaseValue) + " \u{20BD}"
+        cell.purchaseValueLabel.text = "- " + separatedNumber(model.purchaseValue) + currency
         cell.purchaseValueLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
         
         return cell

@@ -26,6 +26,7 @@
 		25E0A6F726824C520033B32A /* AddCategoryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6F626824C520033B32A /* AddCategoryExt.swift */; };
 		25E0A6F926824C610033B32A /* AddPurchaseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6F826824C610033B32A /* AddPurchaseExt.swift */; };
 		25E0A6FB26824F5A0033B32A /* TableViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6FA26824F5A0033B32A /* TableViewExt.swift */; };
+		25E0A6FD2682579D0033B32A /* LabelExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E0A6FC2682579D0033B32A /* LabelExt.swift */; };
 		25EB097126650CB90080E798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097026650CB90080E798 /* AppDelegate.swift */; };
 		25EB097326650CB90080E798 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097226650CB90080E798 /* SceneDelegate.swift */; };
 		25EB097526650CB90080E798 /* RevenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097426650CB90080E798 /* RevenueViewController.swift */; };
@@ -55,6 +56,7 @@
 		25E0A6F626824C520033B32A /* AddCategoryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryExt.swift; sourceTree = "<group>"; };
 		25E0A6F826824C610033B32A /* AddPurchaseExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPurchaseExt.swift; sourceTree = "<group>"; };
 		25E0A6FA26824F5A0033B32A /* TableViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewExt.swift; sourceTree = "<group>"; };
+		25E0A6FC2682579D0033B32A /* LabelExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExt.swift; sourceTree = "<group>"; };
 		25EB096D26650CB90080E798 /* finance-budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "finance-budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25EB097026650CB90080E798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25EB097226650CB90080E798 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				25E0A6F326824BC30033B32A /* AddPopUpsExt */,
 				254D5F402677A945001BF78E /* ViewControllerExt.swift */,
 				25E0A6FA26824F5A0033B32A /* TableViewExt.swift */,
+				25E0A6FC2682579D0033B32A /* LabelExt.swift */,
 				254D5F3126777AF9001BF78E /* RevenueControllerExt.swift */,
 				254D5F3C2677A23B001BF78E /* PurchasesCategoryControllerExt.swift */,
 				259A83102679FF0900B8F24A /* PurchaseListControllerExt.swift */,
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				254D5F3D2677A23B001BF78E /* PurchasesCategoryControllerExt.swift in Sources */,
+				25E0A6FD2682579D0033B32A /* LabelExt.swift in Sources */,
 				254D5F2D2677733B001BF78E /* Models.swift in Sources */,
 				25E0A6F926824C610033B32A /* AddPurchaseExt.swift in Sources */,
 				259A8316267A512E00B8F24A /* GraphicsViewController.swift in Sources */,

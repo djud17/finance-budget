@@ -18,14 +18,14 @@ class GraphicsViewController: UIViewController {
     
     var revenueSum = 0
     var purchaseSum = 0
+    var currency = " \u{20BD}"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + " \u{20BD}"
+        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
         allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
-        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + " \u{20BD}"
-        allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
+        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +35,7 @@ class GraphicsViewController: UIViewController {
            let purchaseRealmArray = Persistance.shared.realmReadAllPurchase() {
             
             if revenueRealmArray.isEmpty && purchaseRealmArray.isEmpty {
-                chartView.noDataText = "Нет данных"
-                chartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+                showNoData()
             } else {
                 revenueSum = 0
                 purchaseSum = 0
@@ -47,16 +46,26 @@ class GraphicsViewController: UIViewController {
                 for el in purchaseRealmArray {
                     purchaseSum += el.purchaseValue
                 }
-                allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + " \u{20BD}"
-                allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 
-                allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + " \u{20BD}"
-                allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
-                
-                
-                setChart(dataPoints: ["Доходы","Расходы"], values: [revenueSum,purchaseSum].map{ Double($0) })
+                showData()
             }
         }
+    }
+    
+    func showNoData() {
+        chartView.noDataText = "Нет данных"
+        chartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
+    }
+    
+    func showData() {
+        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
+        allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        
+        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
+        allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
+        
+        
+        setChart(dataPoints: ["Доходы","Расходы"], values: [revenueSum,purchaseSum].map{ Double($0) })
     }
 
     func setChart(dataPoints: [String], values: [Double]) {

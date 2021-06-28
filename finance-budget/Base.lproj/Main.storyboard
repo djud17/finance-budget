@@ -38,12 +38,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBw-Gu-mnO" customClass="CustomView" customModule="finance_budget" customModuleProvider="target">
                                 <rect key="frame" x="20" y="84" width="374" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yl-b8-Pja">
-                                        <rect key="frame" x="334" y="24" width="20" height="20"/>
-                                        <connections>
-                                            <action selector="addRevenue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pB9-47-fKf"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Текущий баланс:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p85-Nv-u4j">
                                         <rect key="frame" x="20" y="20" width="172.5" height="27.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
@@ -60,16 +54,14 @@
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.097714149764354996" alpha="0.19837699031198261" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="svc-R9-qV8" firstAttribute="leading" secondItem="aBw-Gu-mnO" secondAttribute="leading" constant="30" id="0CM-G0-QTd"/>
-                                    <constraint firstAttribute="trailing" secondItem="3yl-b8-Pja" secondAttribute="trailing" constant="20" id="0FV-Zr-w8I"/>
                                     <constraint firstItem="p85-Nv-u4j" firstAttribute="top" secondItem="aBw-Gu-mnO" secondAttribute="top" constant="20" id="4m7-2I-XKI"/>
-                                    <constraint firstItem="3yl-b8-Pja" firstAttribute="centerY" secondItem="p85-Nv-u4j" secondAttribute="centerY" id="9SH-Cf-eVg"/>
                                     <constraint firstAttribute="height" constant="80" id="CLT-yb-Oeg"/>
                                     <constraint firstItem="svc-R9-qV8" firstAttribute="top" secondItem="p85-Nv-u4j" secondAttribute="baseline" constant="10" id="mP3-ZF-svd"/>
                                     <constraint firstItem="p85-Nv-u4j" firstAttribute="leading" secondItem="aBw-Gu-mnO" secondAttribute="leading" constant="20" id="yeQ-mF-LSw"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pwy-Vj-hrC">
-                                <rect key="frame" x="0.0" y="241.5" width="414" height="571.5"/>
+                                <rect key="frame" x="0.0" y="241.5" width="414" height="501.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="revenueCell" textLabel="oaH-RI-sRE" detailTextLabel="jle-7Z-gA5" style="IBUITableViewCellStyleValue1" id="aBn-85-PEO">
@@ -109,16 +101,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqV-75-skr" customClass="CustomButton" customModule="finance_budget" customModuleProvider="target">
+                                <rect key="frame" x="20" y="763" width="374" height="30"/>
+                                <state key="normal" title="Добавить доход"/>
+                                <connections>
+                                    <action selector="addRevenue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tYw-Ga-gyl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2eg-P0-8qL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1mx-gg-aCU"/>
                             <constraint firstItem="pwy-Vj-hrC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3Ve-dj-KbN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hqV-75-skr" secondAttribute="trailing" constant="20" id="68C-3h-Mvt"/>
                             <constraint firstItem="aBw-Gu-mnO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="79u-bz-31a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pwy-Vj-hrC" secondAttribute="trailing" id="80Z-xl-PqS"/>
                             <constraint firstItem="pwy-Vj-hrC" firstAttribute="top" secondItem="2eg-P0-8qL" secondAttribute="bottom" constant="20" id="83o-qv-QeG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pwy-Vj-hrC" secondAttribute="bottom" id="cFW-A3-ze2"/>
+                            <constraint firstItem="hqV-75-skr" firstAttribute="top" secondItem="pwy-Vj-hrC" secondAttribute="bottom" constant="20" id="Drf-Wx-zLo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hqV-75-skr" secondAttribute="bottom" constant="20" id="R6e-qf-OH6"/>
+                            <constraint firstItem="hqV-75-skr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Saf-TZ-6I8"/>
                             <constraint firstItem="2eg-P0-8qL" firstAttribute="top" secondItem="aBw-Gu-mnO" secondAttribute="bottom" constant="30" id="hWX-lR-6tq"/>
                             <constraint firstItem="aBw-Gu-mnO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="piH-TX-fTt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aBw-Gu-mnO" secondAttribute="trailing" constant="20" id="vpn-A0-Ww1"/>
