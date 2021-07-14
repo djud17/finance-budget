@@ -21,6 +21,8 @@ class RevenueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        
         revenueTableView.tableFooterView = UIView()
         revenueTableView.allowsSelection = false
         
