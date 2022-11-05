@@ -168,7 +168,7 @@ class GraphRevenuesViewController: UIViewController {
         chartDataSet.mode = .cubicBezier
         chartDataSet.lineWidth = 3
         chartDataSet.setColor( #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1))
-        chartDataSet.fill = Fill(color: #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1))
+        //chartDataSet.fill = Fill(color: #colorLiteral(red: Float(0.6235294342), green: Float(0.117264287), blue: Float(0.06386806873), alpha: Float(1)))
         chartDataSet.fillAlpha = 0.8
         chartDataSet.formSize = 15.0
         chartDataSet.drawFilledEnabled = true

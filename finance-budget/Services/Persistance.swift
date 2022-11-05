@@ -5,73 +5,100 @@
 //  Created by Давид Тоноян  on 14.06.2021.
 //
 
-import Foundation
 import RealmSwift
 
-class Persistance {
-    static let shared = Persistance()
+enum RealmError: Error {
+    case writeError
+    case deleteError
+    case readError
+}
+
+final class Storage {
+    static let shared = Storage()
     
-    let realm = try! Realm()
+    // MARK: UserDefaults read & write current balance
     
-    func realmWrite(_ object: Any) {
-        try! realm.write{
-            realm.add(object as! Object)
+    private let curBalanceKey = "Persistance.curBalanceKey"
+    var balance: Int? {
+        get { UserDefaults.standard.integer(forKey: curBalanceKey) }
+        set { UserDefaults.standard.set(newValue, forKey: curBalanceKey) }
+    }
+    private let realm = try? Realm()
+    
+    func realmWrite(writedObject: Object) throws {
+        guard let realm else { return }
+        
+        do {
+            try realm.write { realm.add(writedObject) }
+        } catch {
+            throw RealmError.writeError
         }
     }
     
     // MARK: Realm read current revenues
     
-    func realmDeleteRevenue(_ revenue: Revenue){
-        try! realm.write{
-            realm.delete(revenue)
+    func realmDeleteRevenue(deletedObject: Revenue) throws {
+        guard let realm else { return }
+        
+        do {
+            try realm.write { realm.delete(deletedObject) }
+        } catch {
+            throw RealmError.writeError
         }
     }
     
     func realmReadRevenue() -> Results<Revenue>? {
-        let array = realm.objects(Revenue.self)
-        return array
+        guard let realm else { return nil }
+        
+        return realm.objects(Revenue.self)
     }
     
     // MARK: Realm read current categories
-
-    func realmDeleteCategory(_ category: Category){
-        let object = realm.objects(Category.self).filter({$0.categoryName == category.categoryName})
-        try! realm.write{
-            realm.delete(object)
+    
+    func realmDeleteCategory(deletedCategory: Category) throws {
+        guard let realm else { return }
+        
+        let deletedArray = realm.objects(Category.self).filter {
+            $0.categoryName == deletedCategory.categoryName
+        }
+        
+        do {
+            try realm.write { realm.delete(deletedArray) }
+        } catch {
+            throw RealmError.deleteError
         }
     }
-
+    
     func realmReadCategory() -> Results<Category>? {
-        let array = realm.objects(Category.self)
-        return array
+        guard let realm else { return nil }
+        
+        return realm.objects(Category.self)
     }
     
     // MARK: Realm read current purchases
-
-    func realmDeletePurchase(_ purchase: Purchase){
-        //let object = realm.objects(Purchase.self).filter({$0.purchaseAim == purchase.purchaseAim})
-        try! realm.write{
-            realm.delete(purchase)
+    
+    func realmDeletePurchase(deletedPurchase: Purchase) throws {
+        guard let realm else { return }
+        
+        do {
+            try realm.write { realm.delete(deletedPurchase) }
+        } catch {
+            throw RealmError.deleteError
         }
     }
-
-    func realmReadPurchase(_ category: String) -> LazyFilterSequence<Results<Purchase>>? {
-        let array = realm.objects(Purchase.self).filter({$0.categoryName == category})
-        return array
+    
+    func realmReadPurchase(purchaseCategory: String) -> LazyFilterSequence<Results<Purchase>>? {
+        guard let realm else { return nil }
+        
+        let categoryArray = realm.objects(Purchase.self).filter {
+            $0.categoryName == purchaseCategory
+        }
+        return categoryArray
     }
     
     func realmReadAllPurchase() -> Results<Purchase>? {
-        let array = realm.objects(Purchase.self)
-        return array
+        guard let realm else { return nil }
+        
+        return realm.objects(Purchase.self)
     }
-    
-    // MARK: UserDefaults read & write current balance
-    
-    private let curBalanceKey = "Persistance.curBalanceKey"
-    
-    var balance: Int? {
-        set { UserDefaults.standard.set(newValue, forKey: curBalanceKey)}
-        get { return UserDefaults.standard.integer(forKey: curBalanceKey)}
-    }
-
 }

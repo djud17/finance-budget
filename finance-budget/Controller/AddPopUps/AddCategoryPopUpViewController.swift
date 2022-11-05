@@ -53,3 +53,10 @@ class AddCategoryPopUpViewController: UIViewController {
         }
     }
 }
+
+extension  AddCategoryPopUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addCategory()
+        return true
+    }
+}

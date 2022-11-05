@@ -68,3 +68,10 @@ class AddPurchaseViewController: UIViewController {
     }
     
 }
+
+extension AddPurchaseViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addPurchase()
+        return true
+    }
+}

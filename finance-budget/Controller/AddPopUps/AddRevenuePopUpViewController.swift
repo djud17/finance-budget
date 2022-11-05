@@ -59,3 +59,10 @@ class AddRevenuePopUpViewController: UIViewController {
         }
     }
 }
+
+extension AddRevenuePopUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addRevenue()
+        return true
+    }
+}

@@ -80,7 +80,7 @@ class GraphicsViewController: UIViewController {
         }
         
         // Установка сегментов
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "")
         pieChartDataSet.colors = [#colorLiteral(red: 0.1274035899, green: 0.6980392157, blue: 0.03852839612, alpha: 1), #colorLiteral(red: 0.6231456399, green: 0.1557593048, blue: 0.1239754036, alpha: 1)]
         
         // Установка формата графика
