@@ -9,8 +9,6 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-
-    // FIXME: доделать таб бар
     
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -20,9 +18,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let tabBarController = UITabBarController()
         let revenueViewController = RevenueViewController()
+        revenueViewController.tabBarItem.title = "Доходы"
+        revenueViewController.tabBarItem.image = UIImage(named: "money")
+        
         let categoriesViewController = PurchasesCategoriesViewController()
         let navigationController = UINavigationController(rootViewController: categoriesViewController)
+        navigationController.tabBarItem.title = "Расходы"
+        navigationController.tabBarItem.image = UIImage(named: "receipt")
+        
         let graphicsViewController = GraphicsViewController()
+        graphicsViewController.tabBarItem.title = "График"
+        graphicsViewController.tabBarItem.image = UIImage(named: "graph")
         
         [revenueViewController, navigationController, graphicsViewController].forEach {
             tabBarController.addChild($0)

@@ -9,240 +9,327 @@ import UIKit
 import SnapKit
 
 final class RevenueViewController: UIViewController {
-    @IBOutlet weak var balanceLabel: UILabel!
-    @IBOutlet weak var revenueTableView: UITableView!
     
-    private var currentBalance = 0
-    private var revenueArrays: [Revenue] = []
-    private var currency = " \u{20BD}"
+    // MARK: - Elements
     
-    private let storage = Storage.shared
+    private let balanceBackView = UIView()
+    private let revenueTableView = UITableView()
+    private var currentBalanceLabel = UILabel()
+    
+    // MARK: - Parameters
+    
+    private let currency = Constants.currency
+    private var currentBalance = 0 {
+        didSet {
+            currentBalanceLabel.text = "\(currentBalance) \(currency)"
+            currentBalanceLabel.shake()
+        }
+    }
+    private lazy var revenueArrays: [Revenue] = [] {
+        didSet {
+            currentBalance += revenueArrays.last?.revenueValue ?? 0
+        }
+    }
+    private enum RevenueError: Error {
+        case noData
+        case incorrectArguments
+    }
+    
+    // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        setupMainView()
+        setupInitialValues()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if let newBalance = storage.balance {
-            currentBalance = newBalance
-            balanceLabel.text = separatedNumber(newBalance) + currency
-        }
+    // MARK: - SetupView functions
+    
+    private func setupMainView() {
+        view.backgroundColor = Constants.whiteColor
+        
+        setupBalanceView()
+        setupRevenueBlock()
     }
     
-    private func setupView() {
-        revenueTableView.tableFooterView = UIView()
+    private func setupInitialValues() {
+        currentBalance = 0
+        revenueArrays = []
+    }
+    
+    private func setupBalanceView() {
+        view.addSubview(balanceBackView)
+        
+        configurateBalanceBackView()
+        setupBalanceBackViewConstraints()
+        setupBalanceViewElements()
+    }
+    
+    private func setupBalanceViewElements() {
+        let balanceTitleLabel = createLabel(withText: "Текущий баланс:")
+        currentBalanceLabel = createLabel(withText: "", andFont: .systemFont(ofSize: 16))
+        
+        balanceBackView.addSubview(balanceTitleLabel)
+        balanceBackView.addSubview(currentBalanceLabel)
+        
+        setupConstraints(forElement: balanceTitleLabel, under: nil, withOffset: 20)
+        setupCurrentBalanceLabelConstraints(under: balanceTitleLabel)
+    }
+    
+    private func configurateBalanceBackView() {
+        balanceBackView.layer.shadowColor = Constants.blackColor.cgColor
+        balanceBackView.layer.shadowOpacity = 0.2
+        balanceBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        balanceBackView.layer.shadowRadius = 3
+        balanceBackView.layer.cornerRadius = 15
+        balanceBackView.layer.backgroundColor = Constants.lightGreenColor.cgColor
+    }
+    
+    private func setupRevenueBlock() {
+        let revenueTitleLabel = createLabel(withText: "Доходы:")
+        let addRevenueButton = createAddRevenueButton()
+        configurateRevenueTableView()
+        
+        view.addSubview(revenueTitleLabel)
+        view.addSubview(revenueTableView)
+        view.addSubview(addRevenueButton)
+        
+        setupConstraints(forElement: revenueTitleLabel, under: balanceBackView, withOffset: 20)
+        setupAddRevenueButtonConstraints(for: addRevenueButton)
+        setupRevenueTableConstraits(under: revenueTitleLabel, bottom: addRevenueButton)
+    }
+    
+    private func configurateRevenueTableView() {
+        revenueTableView.backgroundColor = Constants.whiteColor
         revenueTableView.allowsSelection = false
-        
-        // Подгрузка данных из памяти
-        
-        if let revenueRealmArray = storage.realmReadRevenue(),
-           let newBalance = storage.balance {
-            for el in revenueRealmArray {
-                revenueArrays.append(el)
-            }
-            revenueTableView.reloadData()
-            currentBalance = newBalance
-            balanceLabel.text = separatedNumber(newBalance) + currency
-        }
+        revenueTableView.delegate = self
+        revenueTableView.dataSource = self
     }
     
-    @IBAction func addRevenue(_ sender: Any) {
+    private func createAddRevenueButton() -> UIButton {
+        let newButton = UIButton()
+        newButton.setTitle("Добавить доход", for: .normal)
+        newButton.addTarget(self,
+                            action: #selector(addRevenue),
+                            for: .touchUpInside)
+        configurateButtonView(for: newButton)
         
-        // Вызов всплывающего окна для добавления дохода
-        
-        let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpVCaddRevenue") as! AddRevenuePopUpViewController
-        popUpVC.delegate = self
-
-        self.addChild(popUpVC)
-        popUpVC.view.frame = self.view.frame
-        self.view.addSubview(popUpVC.view)
-
-        popUpVC.didMove(toParent: self)
-    }
-}
-
-extension RevenueViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // Задаем количество ячеек
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if revenueArrays.count == 0 {
-            tableView.setEmptyMessage("Нет записей о доходах")
-        } else {
-            tableView.restore()
-        }
-
-        return revenueArrays.count
+        return newButton
     }
     
-    // Формируем ячейку и передаем данные в элементы ячейки
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "revenueCell")
-        let model = revenueArrays[indexPath.row]
+    private func configurateButtonView(for button: UIButton) {
+        let blackColor = Constants.blackColor
+        button.setTitleColor(blackColor, for: .normal)
+        button.setTitleColor(blackColor.withAlphaComponent(0.5), for: .highlighted)
         
-        cell?.textLabel?.text = model.revenueType
-        cell?.detailTextLabel?.text = "+ " + separatedNumber(model.revenueValue) + currency
-        cell?.detailTextLabel?.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        
-        return cell!
+        button.layer.cornerRadius = 15
+        button.layer.backgroundColor = Constants.lightGreenColor.cgColor
+        button.layer.shadowColor = blackColor.cgColor
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 5, height: 5)
+        button.layer.shadowRadius = 3
     }
     
-    // Добавляем возможность удаления ячейки и соответствующих данных
-    
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+    private func createLabel(withText text: String, andFont font: UIFont = .boldSystemFont(ofSize: 18)) -> UILabel {
+        let titleLabel = UILabel()
+        titleLabel.font = font
+        titleLabel.textColor = Constants.blackColor
+        titleLabel.text = text
+        return titleLabel
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let revenue = self.revenueArrays[indexPath.row]
-            
-            self.revenueArrays.remove(at: indexPath.row)
-            self.currentBalance -= revenue.revenueValue
-            
-            Persistance.shared.balance = self.currentBalance
-            Persistance.shared.realmDeleteRevenue(revenue)
-            
-            self.balanceLabel.text = self.separatedNumber(self.currentBalance) + currency
-            self.balanceLabel.shake()
-            
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-}
-
-extension RevenueViewController: AddRevenueDelegate {
-    
-    // Передаем данные с помощью делегата и добавляем в массив, формирующий таблицу
-    // Запись дохода в Realm
-    
-    func addRevenueToTable(value: Int, type: String) {
-        let revenue = Revenue()
-        revenue.revenueValue = value
-        revenue.revenueType = type
+    private func separatedNumber(_ number: Any) -> String {
+        guard let stringNumber = number as? NSNumber else { return "Not a number" }
         
-        currentBalance += value
-        Persistance.shared.balance = currentBalance
-        
-        revenueArrays.append(revenue)
-        Persistance.shared.realmWrite(revenue)
-        
-        balanceLabel.text = separatedNumber(currentBalance) + currency
-        balanceLabel.shake()
-        revenueTableView.reloadData()
-    }
-}
-
-extension UIViewController {
-    
-    // Функция анимирования появления всплывающего окна
-    
-    func moveIn() {
-        self.view.transform = CGAffineTransform(scaleX: 1.35, y: 1.35)
-        self.view.alpha = 0.0
-        
-        UIView.animate(withDuration: 0.24) {
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.view.alpha = 1.0
-        }
-    }
-    
-    // Функция анимирования исчезания всплывающего окна
-
-    func moveOut() {
-        UIView.animate(withDuration: 0.24, animations: {
-            self.view.transform = CGAffineTransform(scaleX: 1.35, y: 1.35)
-            self.view.alpha = 0.0
-        }) { _ in
-            self.view.removeFromSuperview()
-        }
-    }
-    
-    // Функция для отображения числа с разделением на десятки
-    
-    func separatedNumber(_ number: Any) -> String {
-        guard let itIsANumber = number as? NSNumber else { return "Not a number" }
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = " "
         formatter.decimalSeparator = ","
-        return formatter.string(from: itIsANumber)!
+        
+        return formatter.string(from: stringNumber) ?? ""
     }
     
-    // Функция сокращения даты
+    private func createTextField(withPlaceHolder placeholder: String) -> UITextField {
+        let textField = UITextField()
+        textField.borderStyle = .roundedRect
+        textField.placeholder = placeholder
+        textField.backgroundColor = Constants.whiteColor
+        
+        return textField
+    }
     
-    func shortDate(_ longDate: String) -> String {
-        var newShortDate = longDate
+    private func showErrorMessage(error: RevenueError) {
+        var errorMessage: String
         
-        let range = longDate.index(longDate.startIndex, offsetBy: 10)..<longDate.endIndex
-        newShortDate.removeSubrange(range)
-        
-        let str = newShortDate.components(separatedBy: "-")
-        newShortDate = ""
-
-        for el in str.reversed() {
-            newShortDate += el + "."
+        switch error {
+        case .incorrectArguments:
+            errorMessage = "Введены некорректные аргументы"
+        case .noData:
+            errorMessage = "Данные отсутствуют"
         }
         
-        newShortDate.removeLast()
+        let errorInfoController = UIAlertController(title: "Ошибка",
+                                                    message: errorMessage,
+                                                    preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        errorInfoController.addAction(okButton)
         
-        return newShortDate
+        present(errorInfoController, animated: true)
     }
     
-    static let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        
-        // make sure the following are the same as that used in the API
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.locale = Locale.current
-        
-        return formatter
-    }()
-    
-    class func shortString(fromDate date: Date) -> String {
-        return formatter.string(from: date)
+    @objc private func addRevenue(sender: UIButton) {
+        let addRevenueController = createAlertController()
+        present(addRevenueController, animated: true)
     }
     
-    class func date(fromShortString string: String) -> Date? {
-        return formatter.date(from: string)
+    private func createAlertController() -> UIAlertController {
+        let alertController = UIAlertController(title: nil,
+                                                     message: "Добавить доход",
+                                                     preferredStyle: .alert)
+        
+        let revenueValueTextField = createTextField(withPlaceHolder: "Введите доход")
+        let revenueTitleTextField = createTextField(withPlaceHolder: "Введите название дохода")
+        
+        createBackView(on: alertController.view, with: [revenueValueTextField, revenueTitleTextField])
+        
+        setupConstraints(forElement: revenueValueTextField, under: nil, withOffset: 10)
+        setupConstraints(forElement: revenueTitleTextField, under: revenueValueTextField, withOffset: 10)
+        
+        alertController.view.snp.makeConstraints { make in
+            make.height.equalTo(200)
+        }
+        
+        let okButton = UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
+            let revenueValue = revenueValueTextField.text ?? ""
+            let revenueTitle = revenueTitleTextField.text ?? ""
+            let checkArguments = self?.checkArguments(revenueValue: revenueValue, revenueTitle: revenueTitle) ?? false
+
+            if checkArguments {
+                let revenue = Revenue()
+                revenue.revenueTitle = revenueTitle
+                revenue.revenueValue = Int(revenueValue) ?? 0
+                self?.revenueArrays.append(revenue)
+                self?.revenueTableView.reloadData()
+            } else {
+                self?.showErrorMessage(error: .incorrectArguments)
+            }
+        }
+        alertController.addAction(okButton)
+        
+        return alertController
+    }
+    
+    private func createBackView(on view: UIView, with childViews: [UIView]) {
+        let backView = UIView()
+        childViews.forEach { backView.addSubview($0) }
+        
+        view.addSubview(backView)
+        
+        backView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.equalTo(100)
+        }
+    }
+    
+    private func checkArguments(revenueValue: String, revenueTitle: String) -> Bool {
+        return !revenueValue.isEmpty && !revenueTitle.isEmpty && (Int(revenueValue) != nil)
+    }
+    
+    // MARK: - Setup Constraints functions
+    
+    private func setupConstraints(forElement element: UIView, under underView: UIView?, withOffset value: Int) {
+        if let underView {
+            element.snp.makeConstraints { make in
+                make.top.equalTo(underView.snp.bottom).offset(value)
+            }
+        } else {
+            element.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(value)
+            }
+        }
+        element.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(value)
+            make.trailing.equalToSuperview().inset(value)
+        }
+    }
+    
+    private func setupCurrentBalanceLabelConstraints(under underView: UIView) {
+        currentBalanceLabel.snp.makeConstraints { make in
+            make.top.equalTo(underView.snp.bottom).offset(5)
+            make.leading.equalToSuperview().offset(25)
+            make.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
+    private func setupBalanceBackViewConstraints() {
+        balanceBackView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(80)
+        }
+    }
+    
+    private func setupAddRevenueButtonConstraints(for addRevenueButton: UIButton) {
+        addRevenueButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+        }
+    }
+    
+    private func setupRevenueTableConstraits(under underView: UIView, bottom bottomView: UIView) {
+        revenueTableView.snp.makeConstraints { make in
+            make.top.equalTo(underView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(bottomView.snp.top).inset(20)
+        }
     }
 }
 
-extension UITableView {
-    
-    // Добавления сообщения, когда нет информации
+// MARK: - Extensions
 
-    func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = message
-        messageLabel.textColor = .black
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
-        messageLabel.sizeToFit()
-
-        self.backgroundView = messageLabel
-        self.separatorStyle = .none
+extension RevenueViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        revenueArrays.count
     }
-
-    func restore() {
-        self.backgroundView = nil
-        self.separatorStyle = .singleLine
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = revenueArrays[indexPath.row]
+        let reuseID = Constants.revenueCellReuseID
+        var cell: UITableViewCell
+        
+        if let reusedCell = tableView.dequeueReusableCell(withIdentifier: reuseID) {
+            cell = reusedCell
+        } else {
+            cell = UITableViewCell(style: .value1, reuseIdentifier: reuseID)
+        }
+        configurateCell(cell: cell, viewModel: model)
+        
+        return cell
+    }
+    
+    private func configurateCell(cell: UITableViewCell, viewModel: Revenue) {
+        cell.textLabel?.text = viewModel.revenueTitle
+        let revenueValue = "+ " + separatedNumber(viewModel.revenueValue) + currency
+        cell.detailTextLabel?.text = revenueValue
+        cell.detailTextLabel?.textColor = Constants.greenColor
     }
 }
 
-extension UILabel {
-    func shake() {
-        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.duration = 0.6
-        animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
-        layer.add(animation, forKey: "shake")
+extension RevenueViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            revenueArrays.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }

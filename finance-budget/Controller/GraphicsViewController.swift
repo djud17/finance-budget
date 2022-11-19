@@ -19,37 +19,39 @@ class GraphicsViewController: UIViewController {
     var revenueSum = 0
     var purchaseSum = 0
     var currency = " \u{20BD}"
+    
+    //let storage = Storage.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
+        //allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
         allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
-        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
+        //allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
     }
     
     override func viewWillAppear(_ animated: Bool) {
         // Подгрузка данных из памяти
         
-        if let revenueRealmArray = Persistance.shared.realmReadRevenue(),
-           let purchaseRealmArray = Persistance.shared.realmReadAllPurchase() {
-            
-            if revenueRealmArray.isEmpty && purchaseRealmArray.isEmpty {
-                showNoData()
-            } else {
-                revenueSum = 0
-                purchaseSum = 0
-                
-                for el in revenueRealmArray {
-                    revenueSum += el.revenueValue
-                }
-                for el in purchaseRealmArray {
-                    purchaseSum += el.purchaseValue
-                }
-                
-                showData()
-            }
-        }
+//        if let revenueRealmArray = storage.realmReadRevenue(),
+//           let purchaseRealmArray = storage.realmReadAllPurchase() {
+//            
+//            if revenueRealmArray.isEmpty && purchaseRealmArray.isEmpty {
+//                showNoData()
+//            } else {
+//                revenueSum = 0
+//                purchaseSum = 0
+//                
+//                for el in revenueRealmArray {
+//                    revenueSum += el.revenueValue
+//                }
+//                for el in purchaseRealmArray {
+//                    purchaseSum += el.purchaseValue
+//                }
+//                
+//                showData()
+//            }
+//        }
     }
     
     func showNoData() {
@@ -58,10 +60,10 @@ class GraphicsViewController: UIViewController {
     }
     
     func showData() {
-        allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
+        //allRevenuesLabel.text = "+ " + separatedNumber(revenueSum) + currency
         allRevenuesLabel.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
-        allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
+        //allPurchasesLabel.text = "- " + separatedNumber(purchaseSum) + currency
         allPurchasesLabel.textColor = #colorLiteral(red: 0.6235294342, green: 0.117264287, blue: 0.06386806873, alpha: 1)
         
         
@@ -74,8 +76,8 @@ class GraphicsViewController: UIViewController {
         
         // Установка массива входных значений
         var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+        for index in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[index], label: dataPoints[index], data: dataPoints[index] as AnyObject)
             dataEntries.append(dataEntry)
         }
         

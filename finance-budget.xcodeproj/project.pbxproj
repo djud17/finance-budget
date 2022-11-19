@@ -8,16 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		253C0D3E267A9E9400BBCE04 /* GraphRevenuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */; };
-		254D5F2B26777055001BF78E /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2A26777055001BF78E /* CustomViews.swift */; };
 		254D5F2D2677733B001BF78E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F2C2677733B001BF78E /* Models.swift */; };
-		254D5F3626777E2B001BF78E /* AddRevenuePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3526777E2B001BF78E /* AddRevenuePopUpViewController.swift */; };
 		254D5F3926778EB1001BF78E /* Persistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3826778EB1001BF78E /* Persistance.swift */; };
 		254D5F3B2677A1F9001BF78E /* PurchasesCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3A2677A1F9001BF78E /* PurchasesCategoriesViewController.swift */; };
-		254D5F3F2677A908001BF78E /* AddCategoryPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D5F3E2677A908001BF78E /* AddCategoryPopUpViewController.swift */; };
+		256E67C42923E45800834260 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E67C32923E45800834260 /* Constants.swift */; };
 		259A830D2678A63900B8F24A /* PurchaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A830C2678A63900B8F24A /* PurchaseListViewController.swift */; };
-		259A830F2679FE1600B8F24A /* AddPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A830E2679FE1600B8F24A /* AddPurchaseViewController.swift */; };
 		259A8313267A01B600B8F24A /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A8312267A01B600B8F24A /* PurchaseTableViewCell.swift */; };
 		259A8316267A512E00B8F24A /* GraphicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A8315267A512E00B8F24A /* GraphicsViewController.swift */; };
+		25E61DD02924E86900F47B51 /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E61DCF2924E86900F47B51 /* GlobalExtensions.swift */; };
 		25EB097126650CB90080E798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097026650CB90080E798 /* AppDelegate.swift */; };
 		25EB097326650CB90080E798 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097226650CB90080E798 /* SceneDelegate.swift */; };
 		25EB097526650CB90080E798 /* RevenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB097426650CB90080E798 /* RevenueViewController.swift */; };
@@ -29,16 +27,14 @@
 
 /* Begin PBXFileReference section */
 		253C0D3D267A9E9400BBCE04 /* GraphRevenuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRevenuesViewController.swift; sourceTree = "<group>"; };
-		254D5F2A26777055001BF78E /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		254D5F2C2677733B001BF78E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		254D5F3526777E2B001BF78E /* AddRevenuePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRevenuePopUpViewController.swift; sourceTree = "<group>"; };
 		254D5F3826778EB1001BF78E /* Persistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistance.swift; sourceTree = "<group>"; };
 		254D5F3A2677A1F9001BF78E /* PurchasesCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasesCategoriesViewController.swift; sourceTree = "<group>"; };
-		254D5F3E2677A908001BF78E /* AddCategoryPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryPopUpViewController.swift; sourceTree = "<group>"; };
+		256E67C32923E45800834260 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		259A830C2678A63900B8F24A /* PurchaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseListViewController.swift; sourceTree = "<group>"; };
-		259A830E2679FE1600B8F24A /* AddPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPurchaseViewController.swift; sourceTree = "<group>"; };
 		259A8312267A01B600B8F24A /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		259A8315267A512E00B8F24A /* GraphicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsViewController.swift; sourceTree = "<group>"; };
+		25E61DCF2924E86900F47B51 /* GlobalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalExtensions.swift; sourceTree = "<group>"; };
 		25EB096D26650CB90080E798 /* finance-budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "finance-budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25EB097026650CB90080E798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25EB097226650CB90080E798 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,14 +68,29 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		259A8314267A508B00B8F24A /* AddPopUps */ = {
+		25E61DCE2924E85800F47B51 /* Global Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				254D5F3526777E2B001BF78E /* AddRevenuePopUpViewController.swift */,
-				254D5F3E2677A908001BF78E /* AddCategoryPopUpViewController.swift */,
-				259A830E2679FE1600B8F24A /* AddPurchaseViewController.swift */,
+				25E61DCF2924E86900F47B51 /* GlobalExtensions.swift */,
 			);
-			path = AddPopUps;
+			path = "Global Extensions";
+			sourceTree = "<group>";
+		};
+		25E61DD12924E88600F47B51 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				25EB097026650CB90080E798 /* AppDelegate.swift */,
+				25EB097226650CB90080E798 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		25E61DD22924E89300F47B51 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				256E67C32923E45800834260 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		25EB096426650CB80080E798 = {
@@ -103,12 +114,12 @@
 		25EB096F26650CB90080E798 /* finance-budget */ = {
 			isa = PBXGroup;
 			children = (
+				25E61DD12924E88600F47B51 /* Delegates */,
+				25E61DCE2924E85800F47B51 /* Global Extensions */,
 				254D5F3726778EA0001BF78E /* Services */,
 				25EB098426650DFF0080E798 /* Model */,
 				25EB098626650E0D0080E798 /* View */,
 				25EB098526650E060080E798 /* Controller */,
-				25EB097026650CB90080E798 /* AppDelegate.swift */,
-				25EB097226650CB90080E798 /* SceneDelegate.swift */,
 				25EB097626650CB90080E798 /* Main.storyboard */,
 				25EB097926650CBA0080E798 /* Assets.xcassets */,
 				25EB097B26650CBA0080E798 /* LaunchScreen.storyboard */,
@@ -120,6 +131,7 @@
 		25EB098426650DFF0080E798 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				25E61DD22924E89300F47B51 /* Constants */,
 				254D5F2C2677733B001BF78E /* Models.swift */,
 			);
 			path = Model;
@@ -128,7 +140,6 @@
 		25EB098526650E060080E798 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				259A8314267A508B00B8F24A /* AddPopUps */,
 				25EB097426650CB90080E798 /* RevenueViewController.swift */,
 				254D5F3A2677A1F9001BF78E /* PurchasesCategoriesViewController.swift */,
 				259A830C2678A63900B8F24A /* PurchaseListViewController.swift */,
@@ -141,7 +152,6 @@
 		25EB098626650E0D0080E798 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				254D5F2A26777055001BF78E /* CustomViews.swift */,
 				259A8312267A01B600B8F24A /* PurchaseTableViewCell.swift */,
 			);
 			path = View;
@@ -298,15 +308,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				254D5F2D2677733B001BF78E /* Models.swift in Sources */,
+				256E67C42923E45800834260 /* Constants.swift in Sources */,
 				259A8316267A512E00B8F24A /* GraphicsViewController.swift in Sources */,
 				25EB097526650CB90080E798 /* RevenueViewController.swift in Sources */,
 				259A8313267A01B600B8F24A /* PurchaseTableViewCell.swift in Sources */,
-				254D5F2B26777055001BF78E /* CustomViews.swift in Sources */,
-				259A830F2679FE1600B8F24A /* AddPurchaseViewController.swift in Sources */,
 				254D5F3B2677A1F9001BF78E /* PurchasesCategoriesViewController.swift in Sources */,
-				254D5F3F2677A908001BF78E /* AddCategoryPopUpViewController.swift in Sources */,
+				25E61DD02924E86900F47B51 /* GlobalExtensions.swift in Sources */,
 				253C0D3E267A9E9400BBCE04 /* GraphRevenuesViewController.swift in Sources */,
-				254D5F3626777E2B001BF78E /* AddRevenuePopUpViewController.swift in Sources */,
 				254D5F3926778EB1001BF78E /* Persistance.swift in Sources */,
 				25EB097126650CB90080E798 /* AppDelegate.swift in Sources */,
 				25EB097326650CB90080E798 /* SceneDelegate.swift in Sources */,

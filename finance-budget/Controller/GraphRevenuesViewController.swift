@@ -8,6 +8,10 @@
 import UIKit
 import Charts
 
+class CustomButton: UIButton {
+    
+}
+
 class GraphRevenuesViewController: UIViewController {
     
     @IBOutlet weak var lineChartView: LineChartView!
@@ -18,7 +22,17 @@ class GraphRevenuesViewController: UIViewController {
     @IBOutlet weak var allBtn: CustomButton!
     
     var category = Category()
-
+    
+    init(category: Category) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.category = category
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +42,7 @@ class GraphRevenuesViewController: UIViewController {
         if category.purchases.isEmpty {
             showNoData()
         } else {
-            showData()
+            //showData()
         }
         
         allBtn.backgroundColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
@@ -39,6 +53,7 @@ class GraphRevenuesViewController: UIViewController {
         lineChartView.noDataText = "Нет данных"
         lineChartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)
     }
+    /*
     
     func showData() {
         let dataSetDict = setData(category.purchases, .all)
@@ -47,7 +62,7 @@ class GraphRevenuesViewController: UIViewController {
 
     // Формирование массива данных
     
-    func setData(_ purchases: [Purchase],_ dataType: ChartDataType) -> [(String,String,String,Double)] {
+    func setData(_ purchases: [Revenue.Purchase],_ dataType: ChartDataType) -> [(String, String, String, Double)] {
         var chartData: [(day: String,month: String,year: String,value: Double)] = []
         var purchaseDict: [String:Double] = [:]
         var chartPeriodData: [(day: String,month: String,year: String,value: Double)] = []
@@ -104,6 +119,8 @@ class GraphRevenuesViewController: UIViewController {
         
         return chartPeriodData
     }
+     
+     
     
     // Функция для расчета стартовой даты периода
     
@@ -257,4 +274,6 @@ class GraphRevenuesViewController: UIViewController {
             btn?.tintColor = #colorLiteral(red: 0, green: 0.645577633, blue: 0.07150470763, alpha: 1)
         }
     }
+     
+     */
 }
