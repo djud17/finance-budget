@@ -54,6 +54,32 @@ class GraphicsViewController: UIViewController {
 //        }
     }
     
+    //    private func shortDate(longDate: String) -> String {
+    //        var newShortDate = longDate
+    //
+    //        let range = longDate.index(longDate.startIndex, offsetBy: 10)..<longDate.endIndex
+    //        newShortDate.removeSubrange(range)
+    //
+    //        let str = newShortDate.components(separatedBy: "-")
+    //        newShortDate = ""
+    //
+    //        for char in str.reversed() {
+    //            newShortDate += char + "."
+    //        }
+    //
+    //        newShortDate.removeLast()
+    //
+    //        return newShortDate
+    //    }
+    
+//   private func shortString(fromDate date: Date) -> String {
+//        formatter.string(from: date)
+//    }
+//
+//    private func date(fromShortString string: String) -> Date? {
+//        formatter.date(from: string)
+//    }
+    
     func showNoData() {
         chartView.noDataText = "Нет данных"
         chartView.noDataFont = UIFont(name: "AvenirNext-DemiBold", size: 15) ?? UIFont.systemFont(ofSize: 15)

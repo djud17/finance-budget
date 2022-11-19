@@ -9,8 +9,13 @@ import UIKit
 import SnapKit
 
 final class PurchaseListViewController: UIViewController {
+    
+    // MARK: - Elements
+    
     private let purchasesListTableView = UITableView()
 
+    // MARK: - Parameters
+    
     private var category: Category?
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -20,6 +25,8 @@ final class PurchaseListViewController: UIViewController {
         
         return formatter
     }()
+    
+    // MARK: - Inits
     
     init(category: Category) {
         super.init(nibName: nil, bundle: nil)
@@ -31,87 +38,112 @@ final class PurchaseListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - ViewController Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        setupMainView()
     }
     
-    private func setupView() {
+    // MARK: - SetupView functions
+    
+    private func setupMainView() {
         view.backgroundColor = Constants.whiteColor
         
-        navigationItem.title = category?.categoryName
-        navigationItem.backButtonTitle = "Категории"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        setupNavigation()
         
-        let purchasesGraphButton = setupButton(withName: "График платежей")
+        let purchasesGraphButton = createButton(withName: "График платежей")
         purchasesGraphButton.addTarget(self,
                                        action: #selector(purchasesGraphButtonTapped),
                                        for: .touchUpInside)
+        setupPurchasesGraphButtonConstraints(purchasesGraphButton)
         
-        let addPurchaseButton = setupButton(withName: "Добавить расход")
+        let addPurchaseButton = createButton(withName: "Добавить расход")
         addPurchaseButton.addTarget(self,
                                     action: #selector(addPurchaseButtonTapped),
                                     for: .touchUpInside)
+        setupAddPurchaseButtonConstraints(addPurchaseButton)
         
         let tableTitleStackView = setupTitleLabels()
-        configuratePurchasesTableView()
-        
+        configuratePurchasesTableView(with: tableTitleStackView, and: addPurchaseButton)
+        setupTableTitleStackViewConstraints(for: tableTitleStackView, under: purchasesGraphButton)
+    }
+    
+    private func setupPurchasesGraphButtonConstraints(_ purchasesGraphButton: UIButton) {
         view.addSubview(purchasesGraphButton)
-        view.addSubview(tableTitleStackView)
-        view.addSubview(purchasesListTableView)
-        view.addSubview(addPurchaseButton)
         
         purchasesGraphButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
         }
-        
-        tableTitleStackView.snp.makeConstraints { make in
-            make.top.equalTo(purchasesGraphButton.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-        }
+    }
+    
+    private func setupAddPurchaseButtonConstraints(_ addPurchaseButton: UIButton) {
+        view.addSubview(addPurchaseButton)
         
         addPurchaseButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
         }
-        
-        purchasesListTableView.snp.makeConstraints { make in
-            make.top.equalTo(tableTitleStackView.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(addPurchaseButton.snp.top).inset(20)
-        }
-        
     }
     
-    private func setupButton(withName title: String) -> UIButton {
+    private func setupTableTitleStackViewConstraints(for stackView: UIStackView, under underView: UIView) {
+        view.addSubview(stackView)
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(underView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
+    private func setupNavigation() {
+        navigationItem.title = category?.categoryName
+        navigationItem.backButtonTitle = "Категории"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func createButton(withName title: String) -> UIButton {
         let newButton = UIButton()
         newButton.setTitle(title, for: .normal)
-        newButton.setTitleColor(Constants.blackColor, for: .normal)
-        newButton.setTitleColor(Constants.blackColor.withAlphaComponent(0.5), for: .highlighted)
-        
-        newButton.layer.cornerRadius = 15
-        newButton.layer.backgroundColor = Constants.lightGreenColor.cgColor
-        newButton.layer.shadowColor = Constants.blackColor.cgColor
-        newButton.layer.shadowOpacity = 0.2
-        newButton.layer.shadowOffset = CGSize(width: 5, height: 5)
-        newButton.layer.shadowRadius = 3
+        configurateButtonView(for: newButton)
         
         return newButton
     }
     
-    private func configuratePurchasesTableView() {
+    private func configurateButtonView(for button: UIButton) {
+        let blackColor = Constants.blackColor
+
+        button.setTitleColor(blackColor, for: .normal)
+        button.setTitleColor(blackColor.withAlphaComponent(0.5), for: .highlighted)
+        
+        button.layer.cornerRadius = 15
+        button.layer.backgroundColor = Constants.lightGreenColor.cgColor
+        button.layer.shadowColor = blackColor.cgColor
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 5, height: 5)
+        button.layer.shadowRadius = 3
+    }
+    
+    private func configuratePurchasesTableView(with topView: UIView, and bottomView: UIView) {
         purchasesListTableView.layer.backgroundColor = Constants.whiteColor.cgColor
         purchasesListTableView.dataSource = self
         purchasesListTableView.delegate = self
         purchasesListTableView.allowsSelection = false
         purchasesListTableView.register(PurchaseTableViewCell.self,
                                        forCellReuseIdentifier: Constants.purchaseCellReuseID)
+        
+        view.addSubview(purchasesListTableView)
+        
+        purchasesListTableView.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(bottomView.snp.top).inset(20)
+        }
     }
     
     private func setupTitleLabels() -> UIStackView {
@@ -132,24 +164,6 @@ final class PurchaseListViewController: UIViewController {
         return stackView
     }
     
-    private func shortDate(longDate: String) -> String {
-        var newShortDate = longDate
-
-        let range = longDate.index(longDate.startIndex, offsetBy: 10)..<longDate.endIndex
-        newShortDate.removeSubrange(range)
-        
-        let str = newShortDate.components(separatedBy: "-")
-        newShortDate = ""
-
-        for char in str.reversed() {
-            newShortDate += char + "."
-        }
-        
-        newShortDate.removeLast()
-        
-        return newShortDate
-    }
-    
     private func separatedNumber(_ number: Any) -> String {
         guard let itIsANumber = number as? NSNumber else { return "Not a number" }
         
@@ -160,14 +174,6 @@ final class PurchaseListViewController: UIViewController {
         
         return formatter.string(from: itIsANumber) ?? ""
     }
-    
-    private func shortString(fromDate date: Date) -> String {
-        formatter.string(from: date)
-    }
-    
-    private func date(fromShortString string: String) -> Date? {
-        formatter.date(from: string)
-    }
 
     @objc private func purchasesGraphButtonTapped(sender: UIButton) {
         guard let category else { return }
@@ -177,22 +183,70 @@ final class PurchaseListViewController: UIViewController {
     }
     
     @objc private func addPurchaseButtonTapped(sender: UIButton) {
-        let addPurchaseController = UIAlertController(title: nil,
+        let addPurchaseController = UIAlertController(title: "Новый расход",
                                                       message: "Добавить расход",
                                                       preferredStyle: .alert)
-        let purchaseTitleTextField = UITextField()
-        purchaseTitleTextField.borderStyle = .roundedRect
-        purchaseTitleTextField.placeholder = "Введите название расхода"
-        purchaseTitleTextField.backgroundColor = .white
+        let purchaseTitlePlaceholder = "Введите название расхода"
+        let purchaseTitleTextField = createTextField(withPlaceholder: purchaseTitlePlaceholder)
         
-        let purchaseValueTextField = UITextField()
-        purchaseValueTextField.borderStyle = .roundedRect
-        purchaseValueTextField.placeholder = "Введите сумму"
-        purchaseValueTextField.backgroundColor = .white
+        let purchaseValuePlaceholder = "Введите сумму"
+        let purchaseValueTextField = createTextField(withPlaceholder: purchaseValuePlaceholder)
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         
+        let backView = createAlertControllerBackView(with: purchaseTitleTextField,
+                                                     purchaseValueTextField,
+                                                     datePicker)
+        setupAlertControllerBackViewConstraints(for: addPurchaseController,
+                                                with: backView)
+        
+        addPurchaseController.addAction(UIAlertAction(title: "Done",
+                                                      style: .default) { [unowned self] _ in
+            let purchaseTitle = purchaseTitleTextField.text ?? ""
+            let purchaseValue = purchaseValueTextField.text ?? ""
+            let checkResult = checkArguments(purchaseTitle, and: purchaseValue)
+            
+            if checkResult {
+                let date = formatter.string(from: datePicker.date).description
+                let purchase = createPurchaseObject(purchaseTitle: purchaseTitle,
+                                                    purchaseValue: purchaseValue,
+                                                    purchaseDate: date)
+                category?.purchases.append(purchase)
+                purchasesListTableView.reloadData()
+            }
+        })
+        present(addPurchaseController, animated: true)
+    }
+    
+    private func checkArguments(_ purchaseTitle: String, and purchaseValue: String) -> Bool {
+        return !purchaseTitle.isEmpty && !purchaseValue.isEmpty && Int(purchaseValue) != nil
+    }
+    
+    private func createPurchaseObject(purchaseTitle: String,
+                                      purchaseValue: String,
+                                      purchaseDate: String) -> Purchase {
+        let purchase = Purchase()
+        purchase.purchaseTitle = purchaseTitle
+        purchase.purchaseValue = Int(purchaseValue) ?? 0
+        purchase.purchaseDate = purchaseDate
+        purchase.categoryName = self.category?.categoryName ?? ""
+        return purchase
+    }
+    
+    private func createTextField(withPlaceholder placeholder: String) -> UITextField {
+        let whiteColor = Constants.whiteColor
+        let textField = UITextField()
+        textField.borderStyle = .roundedRect
+        textField.placeholder = placeholder
+        textField.backgroundColor = whiteColor
+        
+        return textField
+    }
+    
+    private func createAlertControllerBackView(with purchaseTitleTextField: UITextField,
+                                               _ purchaseValueTextField: UITextField,
+                                               _ datePicker: UIDatePicker) -> UIView {
         let backView = UIView()
         backView.addSubview(purchaseTitleTextField)
         backView.addSubview(purchaseValueTextField)
@@ -215,41 +269,25 @@ final class PurchaseListViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        addPurchaseController.view.addSubview(backView)
+        return backView
+    }
+    
+    private func setupAlertControllerBackViewConstraints(for alertController: UIAlertController,
+                                                         with backView: UIView) {
+        alertController.view.addSubview(backView)
         
         backView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.height.equalTo(150)
         }
 
-        addPurchaseController.view.snp.makeConstraints { make in
+        alertController.view.snp.makeConstraints { make in
             make.height.equalTo(250)
         }
-        
-        addPurchaseController.addAction(UIAlertAction(title: "Done",
-                                                      style: .default) { [unowned self] _ in
-            let purchaseTitle = purchaseTitleTextField.text ?? ""
-            let purchaseValue = purchaseValueTextField.text ?? ""
-            
-            if !purchaseTitle.isEmpty,
-               !purchaseValue.isEmpty,
-               let purchaseValue = Int(purchaseValue) {
-                
-                let purchase = Purchase()
-                purchase.purchaseTitle = purchaseTitle
-                purchase.purchaseValue = purchaseValue
-                
-                let date = formatter.string(from: datePicker.date)
-                
-                purchase.purchaseDate = date.description
-                purchase.categoryName = self.category?.categoryName ?? ""
-                category?.purchases.append(purchase)
-                purchasesListTableView.reloadData()
-            }
-        })
-        present(addPurchaseController, animated: true)
     }
 }
+
+// MARK: - Extensions
 
 extension PurchaseListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -39,30 +39,7 @@ final class PurchasesCategoriesViewController: UIViewController {
         
         let titleLabel = createTitleLabel(withText: "Категории:")
         let addCategoryButton = createAddCategoryButton()
-        configurateCategoryTableView()
-        
-        view.addSubview(titleLabel)
-        view.addSubview(addCategoryButton)
-        view.addSubview(categoryTableView)
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-        }
-        
-        addCategoryButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
-        }
-        
-        categoryTableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(addCategoryButton.snp.top).inset(20)
-        }
+        configurateCategoryTableView(with: titleLabel, and: addCategoryButton)
     }
     
     private func setupNavigation() {
@@ -71,13 +48,22 @@ final class PurchasesCategoriesViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configurateCategoryTableView() {
+    private func configurateCategoryTableView(with topView: UIView, and bottomView: UIView) {
         categoryTableView.register(UITableViewCell.self,
                                    forCellReuseIdentifier: Constants.purchaseCellReuseID)
         categoryTableView.backgroundColor = Constants.whiteColor
         categoryTableView.allowsSelection = true
         categoryTableView.delegate = self
         categoryTableView.dataSource = self
+        
+        view.addSubview(categoryTableView)
+        
+        categoryTableView.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(bottomView.snp.top).inset(-20)
+        }
     }
     
     private func createTitleLabel(withText text: String) -> UILabel {
@@ -85,6 +71,15 @@ final class PurchasesCategoriesViewController: UIViewController {
         titleLabel.font = .boldSystemFont(ofSize: 18)
         titleLabel.textColor = Constants.blackColor
         titleLabel.text = text
+        
+        view.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        
         return titleLabel
     }
     
@@ -94,6 +89,14 @@ final class PurchasesCategoriesViewController: UIViewController {
         button.addTarget(self, action: #selector(addCategory), for: .touchUpInside)
         
         configurateButtonView(for: button)
+        
+        view.addSubview(button)
+        
+        button.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+        }
         
         return button
     }
