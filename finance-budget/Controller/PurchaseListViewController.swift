@@ -235,11 +235,10 @@ final class PurchaseListViewController: UIViewController {
     }
     
     private func createTextField(withPlaceholder placeholder: String) -> UITextField {
-        let whiteColor = Constants.whiteColor
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.placeholder = placeholder
-        textField.backgroundColor = whiteColor
+        textField.backgroundColor = Constants.whiteColor
         
         return textField
     }
@@ -298,13 +297,16 @@ extension PurchaseListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "purchaseCell") as? PurchaseTableViewCell,
               let category else { return UITableViewCell() }
         let model = category.purchases[indexPath.row]
+        configurateCell(cell, withModel: model)
         
+        return cell
+    }
+    
+    private func configurateCell(_ cell: PurchaseTableViewCell, withModel model: Purchase) {
         cell.purchaseTitleLabel.text = model.purchaseTitle
         cell.purchaseDateLabel.text = model.purchaseDate
         cell.purchaseValueLabel.text = "- " + separatedNumber(model.purchaseValue) + Constants.currency
         cell.purchaseValueLabel.textColor = Constants.darkRedColor
-        
-        return cell
     }
 }
 
