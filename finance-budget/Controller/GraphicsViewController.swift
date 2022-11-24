@@ -6,19 +6,22 @@
 //
 
 import UIKit
-import Charts
+import SnapKit
 
-class GraphicsViewController: UIViewController {
+final class GraphicsViewController: UIViewController {
     
-    // Экран График расходы и доходы
+    // MARK: - Elements
     
-    @IBOutlet weak var allRevenuesLabel: UILabel!
-    @IBOutlet weak var allPurchasesLabel: UILabel!
-    @IBOutlet weak var chartView: PieChartView!
+    private let allRevenuesLabel = UILabel()
+    private let allPurchasesLabel = UILabel()
     
-    var revenueSum = 0
-    var purchaseSum = 0
-    var currency = " \u{20BD}"
+    // @IBOutlet weak var chartView: PieChartView!
+    
+    // MARK: - Parameters
+    
+    private var revenueSum = 0
+    private var purchaseSum = 0
+    private let currency = Constants.currency
     
     //let storage = Storage.shared
 
